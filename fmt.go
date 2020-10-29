@@ -1,11 +1,5 @@
 package xmltool
 
-import (
-	"time"
-
-	"github.com/cdutwhu/gotil/misc"
-)
-
 // func mkIndent(n int) string {
 // 	var sb strings.Builder
 // 	for i := 0; i < n; i++ {
@@ -163,7 +157,7 @@ func cat(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk
 
 // Fmt :
 func Fmt(xstr string) string {
-	misc.TrackTime(time.Now())
+	// misc.TrackTime(time.Now())
 
 	stk := stack{}
 	mLvlEle := make(map[int8]string)
