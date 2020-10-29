@@ -5,7 +5,8 @@ import "testing"
 func TestBasic(t *testing.T) {
 	xml := `<Activity RefId="C27E1FCF-C163-485F-BEF0-F36F18A0493A" AMD="YES">
 	<Title>Shakespeare Essay - Much Ado About Nothing</Title>
-	<Preamble>This is a very funny comedy - students should have passing familiarity with Shakespeare</Preamble>
+	<Preamble>This is a very funny comedy - 
+	students should have passing familiarity with Shakespeare</Preamble>
 	<LearningStandards>
 	<LearningStandardItemRefId>9DB15CEA-B2C5-4F66-94C3-7D0A0CAEDDA4</LearningStandardItemRefId>
 	</LearningStandards>

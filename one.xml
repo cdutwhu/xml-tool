@@ -1,0 +1,39 @@
+<SchoolInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RefId="02680eee-9fac-45bb-b510-aac339775b16" xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+  <LocalId>x72861</LocalId>
+  <StateProvinceId xsi:nil="true" />
+  <CommonwealthId xsi:nil="true" />
+  <ACARAId>21213</ACARAId>
+  <OtherIdList xsi:nil="true" />
+  <SchoolName xsi:nil="true">Hippocentaur Primary College</SchoolName>
+  <LEAInfoRefId xsi:nil="true" />
+  <SchoolDistrict xsi:nil="true" />
+  <SchoolDistrictLocalId xsi:nil="true" />
+  <SchoolFocusList xsi:nil="true" />
+  <SchoolURL xsi:nil="true" />
+  <SchoolEmailList xsi:nil="true" />
+  <PrincipalInfo xsi:nil="true" />
+  <SchoolContactList xsi:nil="true" />
+    <AddressList>
+    <Address Type="0123" Role="012A">
+      <StateProvince>OS</StateProvince>
+      <GridLocation xsi:nil="true" />
+      <RadioContact xsi:nil="true" />
+      <Community xsi:nil="true" />
+      <LocalId xsi:nil="true" />
+      <AddressGlobalUID xsi:nil="true" />
+      <StatisticalAreas xsi:nil="true" />
+    </Address>
+  </AddressList>
+  <PhoneNumberList xsi:nil="true" />
+  <YearLevels xsi:nil="true" />
+  <Campus xsi:nil="true" />
+  <SchoolSector>NG</SchoolSector>
+  <SchoolGeographicLocation>15</SchoolGeographicLocation>
+  <LocalGovernmentArea xsi:nil="true" />
+  <JurisdictionLowerHouse xsi:nil="true" />
+  <YearLevelEnrollmentList xsi:nil="true" />
+  <TotalEnrollments xsi:nil="true" />
+  <SchoolGroupList xsi:nil="true" />
+  <SIF_Metadata xsi:nil="true" />
+  <SIF_ExtendedElements xsi:nil="true" />
+</SchoolInfo>

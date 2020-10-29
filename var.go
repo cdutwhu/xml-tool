@@ -18,7 +18,13 @@ var (
 	sTrimRight    = strings.TrimRight
 	sTrimLeft     = strings.TrimLeft
 	sTrim         = strings.Trim
+	sHasPrefix    = strings.HasPrefix
+	sHasSuffix    = strings.HasSuffix
 	rxMustCompile = regexp.MustCompile
+)
+
+type (
+	sBuilder = strings.Builder
 )
 
 var (
