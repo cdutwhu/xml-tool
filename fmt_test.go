@@ -3,9 +3,13 @@ package xmltool
 import (
 	"io/ioutil"
 	"testing"
+	"time"
+
+	"github.com/cdutwhu/gotil/misc"
 )
 
 func TestValStrIdx(t *testing.T) {
+	misc.TrackTime(time.Now())
 	bytes, _ := ioutil.ReadFile("./one.xml")
 	xstr := string(bytes)
 

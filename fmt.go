@@ -9,28 +9,29 @@ package xmltool
 // }
 
 var (
-	xIndent = [21]string{
-		"",                                           // 0
-		"\n\t",                                       // 1
-		"\n\t\t",                                     // 2
-		"\n\t\t\t",                                   // 3
-		"\n\t\t\t\t",                                 // 4
-		"\n\t\t\t\t\t",                               // 5
-		"\n\t\t\t\t\t\t",                             // 6
-		"\n\t\t\t\t\t\t\t",                           // 7
-		"\n\t\t\t\t\t\t\t\t",                         // 8
-		"\n\t\t\t\t\t\t\t\t\t",                       // 9
-		"\n\t\t\t\t\t\t\t\t\t\t",                     // 10
-		"\n\t\t\t\t\t\t\t\t\t\t\t",                   // 11
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t",                 // 12
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t",               // 13
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t",             // 14
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",           // 15
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",         // 16
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",       // 17
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",     // 18
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",   // 19
-		"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", // 20
+	xIndent = [22]string{
+		"",                                       // 0
+		"\t",                                     // 1
+		"\t\t",                                   // 2
+		"\t\t\t",                                 // 3
+		"\t\t\t\t",                               // 4
+		"\t\t\t\t\t",                             // 5
+		"\t\t\t\t\t\t",                           // 6
+		"\t\t\t\t\t\t\t",                         // 7
+		"\t\t\t\t\t\t\t\t",                       // 8
+		"\t\t\t\t\t\t\t\t\t",                     // 9
+		"\t\t\t\t\t\t\t\t\t\t",                   // 10
+		"\t\t\t\t\t\t\t\t\t\t\t",                 // 11
+		"\t\t\t\t\t\t\t\t\t\t\t\t",               // 12
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t",             // 13
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t",           // 14
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",         // 15
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",       // 16
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",     // 17
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",   // 18
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", // 19
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",   // 20
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", // 21
 	}
 )
 
@@ -139,6 +140,9 @@ func cat(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk
 	case sBrkt, wBrkt: // push
 		ele = rxTag.FindString(part)
 		ele = ele[1 : len(ele)-1]
+		if stk.len() > 0 {
+			sb.WriteString("\n")
+		}
 		sb.WriteString(xIndent[stk.len()])
 		if partType == sBrkt {
 			stk.push(ele)
