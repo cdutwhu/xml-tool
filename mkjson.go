@@ -61,8 +61,9 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		ind := xIndent[stk.len()]
 		sb.WriteString("\n")
 		sb.WriteString(ind)
-		sb.WriteString("\t") // supplement one '\t' to text content indent
-		sb.WriteString(fSf("\"#content\": \"%s\"", part))
+		sb.WriteString("\t")               // supplement one '\t' to text content indent
+		txt := sTrimRight(part, " \t\n\r") // remove tail blank or line-feed
+		sb.WriteString(fSf("\"#content\": \"%s\"", txt))
 
 	case eBrkt: // pop
 		ind := xIndent[stk.len()]
@@ -111,7 +112,7 @@ func MkJSON(xstr string) string {
 	jstr = rxContNoAttr.ReplaceAllStringFunc(jstr, func(m string) string {
 		m = sTrimRight(m, "}")
 		txt := sSplit(m, `"#content":`)[1]
-		txt = sTrim(txt, "\n\t ")
+		txt = sTrim(txt, " \t\n\r")
 		return txt
 	})
 
