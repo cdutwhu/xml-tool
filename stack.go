@@ -35,3 +35,12 @@ func (stk *stack) clear() (n int) {
 	stk = &stack{}
 	return n
 }
+
+func (stk *stack) sprint(sep string) string {
+	sb := sBuilder{}
+	for _, ele := range *stk {
+		sb.WriteString(fSf("%v", ele))
+		sb.WriteString(sep)
+	}
+	return sTrimRight(sb.String(), sep)
+}
