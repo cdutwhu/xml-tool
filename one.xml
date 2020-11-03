@@ -1,4 +1,4 @@
-<SchoolInfo xmlns:xsd='http://www.w3.org/2001/XMLSchema' xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RefId="02680eee-9fac-45bb-b510-aac339775b16" xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+<SchoolInfo xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RefId="02680eee-9fac-45bb-b510-aac339775b16" xmlns="http://www.sifassociation.org/datamodel/au/3.4">
   <LocalId>x72861</LocalId>
   <StateProvinceId xsi:nil="true" />
   <CommonwealthId xsi:nil="true" />

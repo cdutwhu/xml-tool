@@ -100,8 +100,20 @@ func MkJSON(xstr string) string {
 	}
 	sb.WriteString("\n}")
 
-	// -- remove last or redundant comma -- //
-	// rxExtComma.ReplaceAllStringFunc()
+	jstr := sb.String()
 
-	return sb.String()
+	// -- remove last or redundant comma -- //
+	jstr = rxExtComma.ReplaceAllStringFunc(jstr, func(m string) string {
+		return sReplace(m, ",", "", 1)
+	})
+
+	// -- reform no-attributes & text content only element -- //
+	jstr = rxContNoAttr.ReplaceAllStringFunc(jstr, func(m string) string {
+		m = sTrimRight(m, "}")
+		txt := sSplit(m, `"#content":`)[1]
+		txt = sTrim(txt, "\n\t ")
+		return txt
+	})
+
+	return jstr
 }

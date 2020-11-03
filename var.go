@@ -20,6 +20,7 @@ var (
 	sTrim         = strings.Trim
 	sHasPrefix    = strings.HasPrefix
 	sHasSuffix    = strings.HasSuffix
+	sReplace      = strings.Replace
 	rxMustCompile = regexp.MustCompile
 )
 
@@ -28,8 +29,9 @@ type (
 )
 
 var (
-	rxTag      = rxMustCompile(`<\w+[\s/>]`)
-	rxHead     = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
-	rxAttrPart = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
-	rxExtComma = rxMustCompile(`,[\s\n]*}`)
+	rxTag        = rxMustCompile(`<\w+[\s/>]`)
+	rxHead       = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
+	rxAttrPart   = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
+	rxExtComma   = rxMustCompile(`,[\s\n]*}`)
+	rxContNoAttr = rxMustCompile(`\{[\n\s]*"#content":\s+"?\w*"?[\n\s]*\}`)
 )
