@@ -29,6 +29,12 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 	ele := ""
 	switch partType {
 	case sBrkt, wBrkt: // push
+		// if this time element is Not the first one, append a Comma to existing buf.
+		switch buf := sb.String(); buf[len(buf)-1] {
+		case '}', '"':
+			sb.WriteString(",")
+		}
+
 		ele = rxTag.FindString(part)
 		ele = ele[1 : len(ele)-1]
 		ind := xIndent[stk.len()]
@@ -38,18 +44,21 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		sb.WriteString(fSf(`"%s": {`, ele))
 
 		attrs, mav := attrinfo(part)
-		for _, attr := range attrs {
+		for i, attr := range attrs {
 			sb.WriteString("\n")
 			sb.WriteString(ind)
 			sb.WriteString("\t\t") // supplement two '\t' to attribute indent
-			sb.WriteString(fSf("\"@%s\": %s,", attr, mav[attr]))
+			sb.WriteString(fSf("\"@%s\": %s", attr, mav[attr]))
+			if i != len(attrs)-1 {
+				sb.WriteString(",") // if Not the last attr, append a Comma to existing buf.
+			}
 		}
 
 		if partType == wBrkt {
 			sb.WriteString("\n")
 			sb.WriteString(ind)  // '\t' as const indent
 			sb.WriteString("\t") // supplement one '\t' to root indent
-			sb.WriteString("},")
+			sb.WriteString("}")
 		}
 
 		// ----------------------------- //
@@ -58,6 +67,11 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		}
 
 	case cText: // push
+		// if Not the first position for text content, append a Comma to existing buf.
+		if buf := sb.String(); buf[len(buf)-1] == '"' {
+			sb.WriteString(",")
+		}
+
 		ind := xIndent[stk.len()]
 		sb.WriteString("\n")
 		sb.WriteString(ind)
@@ -69,7 +83,7 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		ind := xIndent[stk.len()]
 		sb.WriteString("\n")
 		sb.WriteString(ind) // '\t' as const indent
-		sb.WriteString("},")
+		sb.WriteString("}")
 		// ----------------------------- //
 		ele = part[2 : len(part)-1]
 		if top, ok := stk.peek(); ok && top == ele {
@@ -104,9 +118,9 @@ func MkJSON(xstr string) string {
 	jstr := sb.String()
 
 	// -- remove last or redundant comma -- //
-	jstr = rxExtComma.ReplaceAllStringFunc(jstr, func(m string) string {
-		return sReplace(m, ",", "", 1)
-	})
+	// jstr = rxExtComma.ReplaceAllStringFunc(jstr, func(m string) string {
+	// 	return sReplace(m, ",", "", 1)
+	// })
 
 	// -- reform no-attributes & text content only element -- //
 	jstr = rxContNoAttr.ReplaceAllStringFunc(jstr, func(m string) string {

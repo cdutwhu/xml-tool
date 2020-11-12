@@ -21,9 +21,12 @@ func TestMkJSON(t *testing.T) {
 			xstr := string(bytes)
 			jstr := MkJSON(xstr)
 			if !jt.IsValid(jstr) {
+				fPln(jstr)
 				panic("error on MkJSON")
 			}
-			fPln(jstr)
+			// if xmlfile == "Activity_2.xml" {
+			// 	fPln(jstr)
+			// }
 		}
 		return nil
 	})
