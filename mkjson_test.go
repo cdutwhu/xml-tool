@@ -24,10 +24,33 @@ func TestMkJSON(t *testing.T) {
 				fPln(jstr)
 				panic("error on MkJSON")
 			}
-			// if xmlfile == "Activity_2.xml" {
-			// 	fPln(jstr)
-			// }
+			if xmlfile == "CollectionStatus_0.xml" {
+				fPln(jstr)
+			}
 		}
 		return nil
 	})
+}
+
+func BenchmarkMkJSON(b *testing.B) {
+	for n := 0; n < b.N; n++ {
+		// misc.TrackTime(time.Now())
+		dir := "./examples/"
+		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
+			if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
+				// fPln("--->", xmlfile)
+				bytes, _ := ioutil.ReadFile(dir + xmlfile)
+				xstr := string(bytes)
+				jstr := MkJSON(xstr)
+				if !jt.IsValid(jstr) {
+					fPln(jstr)
+					panic("error on MkJSON")
+				}
+				// if xmlfile == "Activity_2.xml" {
+				// 	fPln(jstr)
+				// }
+			}
+			return nil
+		})
+	}
 }

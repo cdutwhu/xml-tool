@@ -25,14 +25,34 @@ func attrinfo(swBrktPart string) (attrs []string, mav map[string]string) {
 	return
 }
 
+var prevLvl = 0
+var onlyCont = false
+
 func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk *stack) *sBuilder {
 	ele := ""
+
+	defer func() {
+		prevLvl = stk.len()
+		switch partType {
+		case sBrkt:
+			stk.push(ele)
+		case eBrkt:
+			if top, ok := stk.peek(); ok && top == part[2:len(part)-1] {
+				stk.pop()
+			}
+		}
+	}()
+
 	switch partType {
 	case sBrkt, wBrkt: // push
-		// if this time element is Not the first one, append a Comma to existing buf.
+
 		switch buf := sb.String(); buf[len(buf)-1] {
-		case '}', '"':
+		case '}', '"', 'l': // if this time element is Not the first one, append a Comma to existing buf.
 			sb.WriteString(",")
+		case ' ': // step into a deeper object immediately
+			if stk.len() == prevLvl+1 {
+				sb.WriteString("{")
+			}
 		}
 
 		ele = rxTag.FindString(part)
@@ -41,10 +61,13 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		sb.WriteString("\n")
 		sb.WriteString(ind)  // '\t' as const indent
 		sb.WriteString("\t") // supplement one '\t' to root indent
-		sb.WriteString(fSf(`"%s": {`, ele))
+		sb.WriteString(fSf(`"%s": `, ele))
 
 		attrs, mav := attrinfo(part)
 		for i, attr := range attrs {
+			if i == 0 {
+				sb.WriteString("{")
+			}
 			sb.WriteString("\n")
 			sb.WriteString(ind)
 			sb.WriteString("\t\t") // supplement two '\t' to attribute indent
@@ -54,45 +77,43 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 			}
 		}
 
+		// end up the single whole element
 		if partType == wBrkt {
-			sb.WriteString("\n")
-			sb.WriteString(ind)  // '\t' as const indent
-			sb.WriteString("\t") // supplement one '\t' to root indent
-			sb.WriteString("}")
-		}
-
-		// ----------------------------- //
-		if partType == sBrkt {
-			stk.push(ele)
+			if len(attrs) > 0 {
+				sb.WriteString("\n")
+				sb.WriteString(ind)  // '\t' as const indent
+				sb.WriteString("\t") // supplement one '\t' to root indent
+				sb.WriteString("}")
+			} else {
+				sb.WriteString("null") // pure empty whole element
+			}
 		}
 
 	case cText: // push
 		// if Not the first position for text content, append a Comma to existing buf.
-		if buf := sb.String(); buf[len(buf)-1] == '"' {
+		switch buf := sb.String(); buf[len(buf)-1] {
+		case '"', 'l': // here text is not the first sub, above are attributes subs
 			sb.WriteString(",")
+			sb.WriteString("\n")
+			sb.WriteString(xIndent[stk.len()])
+			sb.WriteString("\t")                                                     // supplement one '\t' to text content indent
+			sb.WriteString(fSf("\"#content\": \"%s\"", sTrimRight(part, " \t\n\r"))) // remove tail blank or line-feed
+		case ' ': // here text is the first & only sub
+			sb.WriteString(fSf("\"%s\"", sTrimRight(part, " \t\n\r")))
+			onlyCont = true
 		}
-
-		ind := xIndent[stk.len()]
-		sb.WriteString("\n")
-		sb.WriteString(ind)
-		sb.WriteString("\t")               // supplement one '\t' to text content indent
-		txt := sTrimRight(part, " \t\n\r") // remove tail blank or line-feed
-		sb.WriteString(fSf("\"#content\": \"%s\"", txt))
 
 	case eBrkt: // pop
-		ind := xIndent[stk.len()]
-		sb.WriteString("\n")
-		sb.WriteString(ind) // '\t' as const indent
-		sb.WriteString("}")
-		// ----------------------------- //
-		ele = part[2 : len(part)-1]
-		if top, ok := stk.peek(); ok && top == ele {
-			stk.pop()
+		if !onlyCont {
+			sb.WriteString("\n")
+			sb.WriteString(xIndent[stk.len()]) // '\t' as const indent
+			sb.WriteString("}")
 		}
+		onlyCont = false
 
 	case aQuot:
 	}
-	// sb.WriteString(part)
+	// sb.WriteString(part) // DEBUG
 	return sb
 }
 
@@ -108,6 +129,7 @@ func MkJSON(xstr string) string {
 	bcLocGrp := locMerge(bLocGrp, cLocGrp) // bracket & content
 
 	sb := &sBuilder{}
+	sb.Grow(len(xstr) * 2)
 	sb.WriteString("{")
 	for _, loc := range bcLocGrp {
 		s, e := loc[0], loc[1]
@@ -123,12 +145,12 @@ func MkJSON(xstr string) string {
 	// })
 
 	// -- reform no-attributes & text content only element -- //
-	jstr = rxContNoAttr.ReplaceAllStringFunc(jstr, func(m string) string {
-		m = sTrimRight(m, "}")
-		txt := sSplit(m, `"#content":`)[1]
-		txt = sTrim(txt, " \t\n\r")
-		return txt
-	})
+	// jstr = rxContNoAttr.ReplaceAllStringFunc(jstr, func(m string) string {
+	// 	m = sTrimRight(m, "}")
+	// 	txt := sSplit(m, `"#content":`)[1]
+	// 	txt = sTrim(txt, " \t\n\r")
+	// 	return txt
+	// })
 
 	return jstr
 }
