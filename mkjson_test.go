@@ -19,12 +19,12 @@ func TestMkJSON(t *testing.T) {
 			fPln("--->", xmlfile)
 			bytes, _ := ioutil.ReadFile(dir + xmlfile)
 			xstr := string(bytes)
-			jstr := MkJSON(xstr)
+			jstr := MkJSON(xstr, "", "")
 			if !jt.IsValid(jstr) {
 				fPln(jstr)
 				panic("error on MkJSON")
 			}
-			if xmlfile == "CollectionStatus_0.xml" {
+			if xmlfile == "StudentPersonal.xml" {
 				fPln(jstr)
 			}
 		}
@@ -41,7 +41,7 @@ func BenchmarkMkJSON(b *testing.B) {
 				// fPln("--->", xmlfile)
 				bytes, _ := ioutil.ReadFile(dir + xmlfile)
 				xstr := string(bytes)
-				jstr := MkJSON(xstr)
+				jstr := MkJSON(xstr, "", "")
 				if !jt.IsValid(jstr) {
 					fPln(jstr)
 					panic("error on MkJSON")

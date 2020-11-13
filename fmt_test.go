@@ -10,8 +10,12 @@ import (
 
 func TestValStrIdx(t *testing.T) {
 	misc.TrackTime(time.Now())
-	bytes, _ := ioutil.ReadFile("./one.xml")
+	bytes, _ := ioutil.ReadFile("./examples/StudentPersonal.xml")
 	xstr := string(bytes)
+	if !IsValid(xstr) {
+		panic("error")
+	}
+	fPln(Fmt(xstr))
 
 	// bLocGrp, types := brktLoc(xstr)
 	// fPln(bLocGrp)
@@ -32,9 +36,8 @@ func TestValStrIdx(t *testing.T) {
 	// 	fPln(xstr[loc[0]:loc[1]])
 	// }
 
-	// aLocGrp, types = attrValLoc(xstr, types)
+	// aLocGrp, types := attrValLoc(xstr, types)
 	// fPln(aLocGrp)
 	// fPln(types)
 
-	fPln(Fmt(xstr))
 }

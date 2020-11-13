@@ -9,7 +9,7 @@ package xmltool
 // }
 
 var (
-	xIndent = [22]string{
+	xIndent = [33]string{
 		"",                                       // 0
 		"\t",                                     // 1
 		"\t\t",                                   // 2
@@ -30,8 +30,19 @@ var (
 		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",     // 17
 		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",   // 18
 		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", // 19
-		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",   // 20
-		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", // 21
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",                         // 20
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",                       // 21
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",                     // 22
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",                   // 23
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",                 // 24
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",               // 25
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",             // 26
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",           // 27
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",         // 28
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",       // 29
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",     // 30
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t",   // 31
+		"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t", // 32
 	}
 )
 
@@ -101,9 +112,12 @@ func conTxtLoc(xstr string, brktLocGrp [][2]int, partType map[int]int8) ([][2]in
 			ps, pe := pBrkt[0], pBrkt[1]
 			pTagTxt := xstr[ps+1 : pe-1]
 			if pTagTxt == eTagTxt || sHasPrefix(pTagTxt, eTagTxt+" ") {
-				locGrp = append(locGrp, [2]int{pe, s})
-				// type
-				partType[pe] = cText
+				// exclude empty text content, let this pos be end tag pos
+				if pe != s {
+					locGrp = append(locGrp, [2]int{pe, s})
+					// type
+					partType[pe] = cText
+				}
 			}
 		}
 	}
@@ -171,6 +185,7 @@ func Fmt(xstr string) string {
 	bcLocGrp := locMerge(bLocGrp, cLocGrp)
 
 	sb := &sBuilder{}
+	sb.Grow(len(xstr) * 2)
 	for _, loc := range bcLocGrp {
 		s, e := loc[0], loc[1]
 		sb = cat(sb, xstr[s:e], types[s], &mLvlEle, &stk)

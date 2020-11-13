@@ -25,8 +25,12 @@ func attrinfo(swBrktPart string) (attrs []string, mav map[string]string) {
 	return
 }
 
-var prevLvl = 0
-var onlyCont = false
+var (
+	contAttrName = "#content"
+	attrPrefix   = "@"
+	prevLvl      = 0
+	onlyCont     = false
+)
 
 func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk *stack) *sBuilder {
 	ele := ""
@@ -71,7 +75,7 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 			sb.WriteString("\n")
 			sb.WriteString(ind)
 			sb.WriteString("\t\t") // supplement two '\t' to attribute indent
-			sb.WriteString(fSf("\"@%s\": %s", attr, mav[attr]))
+			sb.WriteString(fSf("\"%s%s\": %s", attrPrefix, attr, mav[attr]))
 			if i != len(attrs)-1 {
 				sb.WriteString(",") // if Not the last attr, append a Comma to existing buf.
 			}
@@ -90,16 +94,17 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		}
 
 	case cText: // push
+		part := sTrimRight(part, " \t\n\r")
 		// if Not the first position for text content, append a Comma to existing buf.
 		switch buf := sb.String(); buf[len(buf)-1] {
 		case '"', 'l': // here text is not the first sub, above are attributes subs
 			sb.WriteString(",")
 			sb.WriteString("\n")
 			sb.WriteString(xIndent[stk.len()])
-			sb.WriteString("\t")                                                     // supplement one '\t' to text content indent
-			sb.WriteString(fSf("\"#content\": \"%s\"", sTrimRight(part, " \t\n\r"))) // remove tail blank or line-feed
+			sb.WriteString("\t")                                      // supplement one '\t' to text content indent
+			sb.WriteString(fSf("\"%s\": \"%s\"", contAttrName, part)) // remove tail blank or line-feed
 		case ' ': // here text is the first & only sub
-			sb.WriteString(fSf("\"%s\"", sTrimRight(part, " \t\n\r")))
+			sb.WriteString(fSf("\"%s\"", part))
 			onlyCont = true
 		}
 
@@ -118,8 +123,15 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 }
 
 // MkJSON :
-func MkJSON(xstr string) string {
+func MkJSON(xstr, nameOfContAttr, prefixOfAttr string) string {
 	// misc.TrackTime(time.Now())
+
+	if nameOfContAttr != "" {
+		contAttrName = nameOfContAttr
+	}
+	if prefixOfAttr != "" {
+		attrPrefix = prefixOfAttr
+	}
 
 	stk := stack{}
 	mLvlEle := make(map[int8]string)
@@ -137,20 +149,5 @@ func MkJSON(xstr string) string {
 	}
 	sb.WriteString("\n}")
 
-	jstr := sb.String()
-
-	// -- remove last or redundant comma -- //
-	// jstr = rxExtComma.ReplaceAllStringFunc(jstr, func(m string) string {
-	// 	return sReplace(m, ",", "", 1)
-	// })
-
-	// -- reform no-attributes & text content only element -- //
-	// jstr = rxContNoAttr.ReplaceAllStringFunc(jstr, func(m string) string {
-	// 	m = sTrimRight(m, "}")
-	// 	txt := sSplit(m, `"#content":`)[1]
-	// 	txt = sTrim(txt, " \t\n\r")
-	// 	return txt
-	// })
-
-	return jstr
+	return sb.String()
 }

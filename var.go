@@ -29,9 +29,9 @@ type (
 )
 
 var (
-	rxTag        = rxMustCompile(`<\w+[\s/>]`)
-	rxHead       = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
-	rxAttrPart   = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
-	rxExtComma   = rxMustCompile(`,[\s\n\r]*}`)
-	rxContNoAttr = rxMustCompile(`\{[\s\n\r]*"#content":\s+"?[^"]*"?[\s\n\r]*\}`)
+	rxTag      = rxMustCompile(`<\w+[\s/>]`)
+	rxHead     = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
+	rxAttrPart = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
+	// rxExtComma   = rxMustCompile(`,[\s\n\r]*}`)
+	// rxContNoAttr = rxMustCompile(`\{[\s\n\r]*"#content":\s+"?[^"]*"?[\s\n\r]*\}`)
 )
