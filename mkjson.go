@@ -75,7 +75,7 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 			sb.WriteString("\n")
 			sb.WriteString(ind)
 			sb.WriteString("\t\t") // supplement two '\t' to attribute indent
-			sb.WriteString(fSf("\"%s%s\": %s", attrPrefix, attr, mav[attr]))
+			sb.WriteString(fSf("\"%s%s\": %s", attrPrefix, sTrimLeft(attr, " \t\r\n"), mav[attr]))
 			if i != len(attrs)-1 {
 				sb.WriteString(",") // if Not the last attr, append a Comma to existing buf.
 			}
