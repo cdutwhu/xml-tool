@@ -93,6 +93,9 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 
 	case cText: // push
 		part := sTrimRight(part, " \t\n\r")
+		part = sReplaceAll(part, "\"", "\\\"")
+		part = sReplaceAll(part, "\n", "\\n")
+
 		// if Not the first position for text content, append a Comma to existing buf.
 		switch buf := sb.String(); buf[len(buf)-1] {
 		case '"', 'l': // here text is not the first sub, above are attributes subs

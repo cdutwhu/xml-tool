@@ -21,12 +21,13 @@ func TestMkJSON(t *testing.T) {
 			xstr := string(bytes)
 			jstr := MkJSON(xstr, "", "")
 			if !jt.IsValid(jstr) {
-				fPln(jstr)
+				// fPln(jstr)
+				ioutil.WriteFile("debug.json", []byte(jstr), 0666)
 				panic("error on MkJSON")
 			}
-			if xmlfile == "Debug2.xml" {
-				fPln(jstr)
-			}
+			// if xmlfile == "Debug3.xml" {
+			// 	fPln(jstr)
+			// }
 		}
 		return nil
 	})

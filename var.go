@@ -21,6 +21,7 @@ var (
 	sHasPrefix    = strings.HasPrefix
 	sHasSuffix    = strings.HasSuffix
 	sReplace      = strings.Replace
+	sReplaceAll   = strings.ReplaceAll
 	rxMustCompile = regexp.MustCompile
 )
 
