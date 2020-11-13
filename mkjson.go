@@ -28,15 +28,13 @@ func attrinfo(swBrktPart string) (attrs []string, mav map[string]string) {
 var (
 	contAttrName = "#content"
 	attrPrefix   = "@"
-	prevLvl      = 0
-	onlyCont     = false
 )
 
-func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk *stack) *sBuilder {
+func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk *stack, prevLvl *int, onlyCont *bool) *sBuilder {
 	ele := ""
 
 	defer func() {
-		prevLvl = stk.len()
+		*prevLvl = stk.len()
 		switch partType {
 		case sBrkt:
 			stk.push(ele)
@@ -54,7 +52,7 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		case '}', '"', 'l': // if this time element is Not the first one, append a Comma to existing buf.
 			sb.WriteString(",")
 		case ' ': // step into a deeper object immediately
-			if stk.len() == prevLvl+1 {
+			if stk.len() == *prevLvl+1 {
 				sb.WriteString("{")
 			}
 		}
@@ -105,16 +103,16 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 			sb.WriteString(fSf("\"%s\": \"%s\"", contAttrName, part)) // remove tail blank or line-feed
 		case ' ': // here text is the first & only sub
 			sb.WriteString(fSf("\"%s\"", part))
-			onlyCont = true
+			*onlyCont = true
 		}
 
 	case eBrkt: // pop
-		if !onlyCont {
+		if !*onlyCont {
 			sb.WriteString("\n")
 			sb.WriteString(xIndent[stk.len()]) // '\t' as const indent
 			sb.WriteString("}")
 		}
-		onlyCont = false
+		*onlyCont = false
 
 	case aQuot:
 	}
@@ -141,11 +139,13 @@ func MkJSON(xstr, nameOfContAttr, prefixOfAttr string) string {
 	bcLocGrp := locMerge(bLocGrp, cLocGrp) // bracket & content
 
 	sb := &sBuilder{}
+	prevLvl, onlyCont := 0, false
+
 	sb.Grow(len(xstr) * 2)
 	sb.WriteString("{")
 	for _, loc := range bcLocGrp {
 		s, e := loc[0], loc[1]
-		sb = cat4json(sb, xstr[s:e], types[s], &mLvlEle, &stk)
+		sb = cat4json(sb, xstr[s:e], types[s], &mLvlEle, &stk, &prevLvl, &onlyCont)
 	}
 	sb.WriteString("\n}")
 

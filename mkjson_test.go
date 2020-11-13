@@ -24,7 +24,7 @@ func TestMkJSON(t *testing.T) {
 				fPln(jstr)
 				panic("error on MkJSON")
 			}
-			if xmlfile == "Debug1.xml" {
+			if xmlfile == "Debug2.xml" {
 				fPln(jstr)
 			}
 		}
