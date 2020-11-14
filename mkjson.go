@@ -87,12 +87,12 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 				sb.WriteString("\t") // supplement one '\t' to root indent
 				sb.WriteString("}")
 			} else {
-				sb.WriteString("null") // pure empty whole element
+				sb.WriteString("null") // pure empty whole element (type <ele />)
 			}
 		}
 
 	case cText: // push
-		part := sTrimRight(part, " \t\n\r")
+		part = sTrim(part, " \t\n\r")
 		part = sReplaceAll(part, "\"", "\\\"")
 		part = sReplaceAll(part, "\n", "\\n")
 
@@ -111,9 +111,13 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 
 	case eBrkt: // pop
 		if !*onlyCont {
-			sb.WriteString("\n")
-			sb.WriteString(xIndent[stk.len()]) // '\t' as const indent
-			sb.WriteString("}")
+			if buf := sb.String(); buf[len(buf)-1] == ' ' {
+				sb.WriteString("null") // empty element (type <ele></ele>)
+			} else {
+				sb.WriteString("\n")
+				sb.WriteString(xIndent[stk.len()]) // '\t' as const indent
+				sb.WriteString("}")
+			}
 		}
 		*onlyCont = false
 

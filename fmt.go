@@ -113,7 +113,7 @@ func conTxtLoc(xstr string, brktLocGrp [][2]int, partType map[int]int8) ([][2]in
 			pTagTxt := xstr[ps+1 : pe-1]
 			if pTagTxt == eTagTxt || sHasPrefix(pTagTxt, eTagTxt+" ") {
 				// exclude empty text content, let this pos be end tag pos
-				if pe != s {
+				if pe != s { // && sTrim(xstr[pe:s], " \t\r\n") != "" {
 					locGrp = append(locGrp, [2]int{pe, s})
 					// type
 					partType[pe] = cText

@@ -25,8 +25,8 @@ func TestMkJSON(t *testing.T) {
 				ioutil.WriteFile("debug.json", []byte(jstr), 0666)
 				panic("error on MkJSON")
 			}
-			// if xmlfile == "Debug3.xml" {
-			// 	fPln(jstr)
+			// if xmlfile == "Debug4.xml" {
+			// 	ioutil.WriteFile("debug.json", []byte(jstr), 0666)
 			// }
 		}
 		return nil
