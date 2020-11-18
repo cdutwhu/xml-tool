@@ -1,14 +1,32 @@
 package xmltool
 
-// if incoming-part is neither <start> nor <whole/> type, return both nil
-func attrinfo(swBrktPart string) (attrs []string, mav map[string]string) {
-	mav = make(map[string]string)
-	attrstrs := rxAttrPart.FindAllString(swBrktPart, -1)
-	for _, attrstr := range attrstrs {
-		eqLoc := sIndex(attrstr, "=")
-		name := sTrim(attrstr[:eqLoc], " \t")
-		attrs = append(attrs, name)
+var (
+	contAttrName = "#content"
+	attrPrefix   = "@"
+	ignoreAttr   = []string{
+		"xsi:nil",
+		"xmlns:xsd",
+		"xmlns:xsi",
+		"xmlns",
+	}
+	listMark = "List"
+	chk4LM   = listMark + `": `
+	// lenOfLM  = len(chk4LM)
+)
 
+// if incoming-part is neither <start> nor <whole/> type, return both nil
+func attrInfo(swBrktPart string, ignore ...string) (attrs []string, mav map[string]string) {
+	mav = make(map[string]string)
+NEXT:
+	for _, attrstr := range rxAttrPart.FindAllString(swBrktPart, -1) {
+		eqLoc := sIndex(attrstr, "=")
+		name := sTrim(attrstr[:eqLoc], " \t\r\n")
+		for _, ign := range ignore {
+			if ign == name {
+				continue NEXT
+			}
+		}
+		attrs = append(attrs, name)
 		iVal := 0
 	FINDAV:
 		for i := eqLoc + 1; i < len(attrstr); i++ {
@@ -25,69 +43,132 @@ func attrinfo(swBrktPart string) (attrs []string, mav map[string]string) {
 	return
 }
 
-var (
-	contAttrName = "#content"
-	attrPrefix   = "@"
-)
+// var listFmt = true
 
-func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk *stack, prevLvl *int, onlyCont *bool) *sBuilder {
+func cat4json(
+	sb *sBuilder,
+	part string,
+	partType int8,
+	mLvlEle *map[int]string,
+	stk *stack,
+	singleCont *bool,
+	plainList *bool,
+	stk4lslvl *stack,
+	mLslvlMark *map[int]struct{},
+) *sBuilder {
+
 	ele := ""
+	lvl := stk.len()
+	ind := xIndent[lvl]
+	appInd := func() string {
+		return xIndent[len(*mLslvlMark)]
+	}
+	lastChar := func() byte {
+		buf := sb.String()
+		return buf[len(buf)-1]
+	}
+	tailStr := func(n int) string {
+		buf := sb.String()
+		if len(buf) < n {
+			return buf
+		}
+		return buf[len(buf)-n:]
+	}
+	tracePrt := func(s string) {
+		sb.WriteString(s)
+		if false {
+			fPln("---", tailStr(80))
+		}
+	}
+
+	// ------------------------------ //
 
 	defer func() {
-		*prevLvl = stk.len()
 		switch partType {
 		case sBrkt:
+			(*mLvlEle)[lvl] = ele // root is lvl0
 			stk.push(ele)
 		case eBrkt:
+			(*mLvlEle)[lvl] = ""
 			if top, ok := stk.peek(); ok && top == part[2:len(part)-1] {
 				stk.pop()
 			}
 		}
 	}()
 
+	// ------------------------------ //
+
 	switch partType {
 	case sBrkt, wBrkt: // push
 
-		switch buf := sb.String(); buf[len(buf)-1] {
-		case '}', '"', 'l': // if this time element is Not the first one, append a Comma to existing buf.
-			sb.WriteString(",")
-		case ' ': // step into a deeper object immediately
-			if stk.len() == *prevLvl+1 {
-				sb.WriteString("{")
+		ele = rxTag.FindString(part)
+		ele = ele[1 : len(ele)-1]
+
+		if *plainList {
+			if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl {
+				break
 			}
 		}
 
-		ele = rxTag.FindString(part)
-		ele = ele[1 : len(ele)-1]
-		ind := xIndent[stk.len()]
-		sb.WriteString("\n")
-		sb.WriteString(ind)  // '\t' as const indent
-		sb.WriteString("\t") // supplement one '\t' to root indent
-		sb.WriteString(fSf(`"%s": `, ele))
+		switch lastChar() {
+		case '}', '"', 'l': // if this time element is Not the 1st one, append a Comma to buf.
+			tracePrt(",")
 
-		attrs, mav := attrinfo(part)
+		case ' ': // step into a sub object(s)
+
+			// list-elements bunch checking ...
+			if buf := sb.String(); sHasAnySuffix(buf, chk4LM) {
+				stk4lslvl.push(lvl)
+			}
+
+			// list CPLX element begin, 1st list element
+			if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl-1 {
+				if _, ok := (*mLslvlMark)[lslvl.(int)]; !ok {
+					(*mLslvlMark)[lslvl.(int)] = struct{}{}
+					tracePrt("[\n" + ind + appInd() + "{")
+				}
+			} else { // non-list element begin
+				tracePrt("{")
+			}
+		}
+
+		// pack indents
+		tracePrt("\n" + ind + appInd() + "\t")
+
+		// 2nd... list element content
+		if ele == (*mLvlEle)[lvl] {
+			tracePrt("{")
+		} else { // non-list element begin, prepare for attrs & subs
+			tracePrt(fSf(`"%s": `, ele)) // write "***":
+		}
+
+		attrs, mav := attrInfo(part, ignoreAttr...)
 		for i, attr := range attrs {
 			if i == 0 {
-				sb.WriteString("{")
+				if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl {
+					if _, ok := (*mLslvlMark)[lslvl.(int)]; !ok {
+						(*mLslvlMark)[lslvl.(int)] = struct{}{}
+						tracePrt("[\n" + ind + appInd() + "\t{")
+					}
+				} else {
+					tracePrt("{")
+				}
 			}
-			sb.WriteString("\n")
-			sb.WriteString(ind)
-			sb.WriteString("\t\t") // supplement two '\t' to attribute indent
-			sb.WriteString(fSf("\"%s%s\": %s", attrPrefix, sTrimLeft(attr, " \t\r\n"), mav[attr]))
+
+			tracePrt("\n" + ind + appInd() + "\t\t") // supplement two '\t' to attribute indent
+			tracePrt(fSf("\"%s%s\": %s", attrPrefix, sTrimLeft(attr, " \t\r\n"), mav[attr]))
+
 			if i != len(attrs)-1 {
-				sb.WriteString(",") // if Not the last attr, append a Comma to existing buf.
+				tracePrt(",") // if Not the last attr, append a Comma to existing buf.
 			}
 		}
 
 		// end up the single whole element
 		if partType == wBrkt {
 			if len(attrs) > 0 {
-				sb.WriteString("\n")
-				sb.WriteString(ind)  // '\t' as const indent
-				sb.WriteString("\t") // supplement one '\t' to root indent
-				sb.WriteString("}")
+				tracePrt("\n" + ind + appInd() + "\t}") // supplement one '\t' to root indent
 			} else {
-				sb.WriteString("null") // pure empty whole element (type <ele />)
+				tracePrt("null") // pure empty whole element (type <ele />)
 			}
 		}
 
@@ -97,40 +178,64 @@ func cat4json(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string
 		part = sReplaceAll(part, "\n", "\\n")
 
 		// if Not the first position for text content, append a Comma to existing buf.
-		switch buf := sb.String(); buf[len(buf)-1] {
+		switch lastChar() {
 		case '"', 'l': // here text is not the first sub, above are attributes subs
-			sb.WriteString(",")
-			sb.WriteString("\n")
-			sb.WriteString(xIndent[stk.len()])
-			sb.WriteString("\t")                                      // supplement one '\t' to text content indent
-			sb.WriteString(fSf("\"%s\": \"%s\"", contAttrName, part)) // remove tail blank or line-feed
+			tracePrt(",")
+
+			if *plainList {
+				tracePrt("\n" + ind + appInd()) // supplement one '\t' to text content indent
+				tracePrt(fSf("\"%s\"", part))
+			} else {
+				tracePrt("\n" + ind + appInd() + "\t")              // supplement one '\t' to text content indent
+				tracePrt(fSf("\"%s\": \"%s\"", contAttrName, part)) // remove tail blank or line-feed
+			}
+
 		case ' ': // here text is the first & only sub
-			sb.WriteString(fSf("\"%s\"", part))
-			*onlyCont = true
+			*singleCont = true
+
+			if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl-1 {
+				if _, ok := (*mLslvlMark)[lslvl.(int)]; !ok {
+					(*mLslvlMark)[lslvl.(int)] = struct{}{}
+					tracePrt("[\n" + ind + appInd())
+					*plainList = true
+				}
+			}
+
+			tracePrt(fSf("\"%s\"", part))
 		}
 
 	case eBrkt: // pop
-		if !*onlyCont {
-			if buf := sb.String(); buf[len(buf)-1] == ' ' {
-				sb.WriteString("null") // empty element (type <ele></ele>)
-			} else {
-				sb.WriteString("\n")
-				sb.WriteString(xIndent[stk.len()]) // '\t' as const indent
-				sb.WriteString("}")
+
+		// end list-element bunch
+		if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl {
+			if _, ok := (*mLslvlMark)[lslvl.(int)]; ok {
+				tracePrt("\n" + ind + appInd() + "]")
+				delete(*mLslvlMark, lslvl.(int))
+				stk4lslvl.pop()
+				*singleCont = false
+				*plainList = false
 			}
 		}
-		*onlyCont = false
 
-	case aQuot:
+		if *plainList {
+			break
+		}
+
+		// singleCont does NOT need '}' at jumping out
+		if !*singleCont {
+			if lastChar() == ' ' {
+				tracePrt("null") // empty element (type <ele></ele>)
+			} else {
+				tracePrt("\n" + ind + appInd() + "}")
+			}
+		}
+		*singleCont = false
 	}
-	// sb.WriteString(part) // DEBUG
 	return sb
 }
 
 // MkJSON :
 func MkJSON(xstr, nameOfContAttr, prefixOfAttr string) string {
-	// misc.TrackTime(time.Now())
-
 	if nameOfContAttr != "" {
 		contAttrName = nameOfContAttr
 	}
@@ -138,21 +243,22 @@ func MkJSON(xstr, nameOfContAttr, prefixOfAttr string) string {
 		attrPrefix = prefixOfAttr
 	}
 
-	stk := stack{}
-	mLvlEle := make(map[int8]string)
+	stk, stk4lslvl := stack{}, stack{}
+	mLvlEle := make(map[int]string)
+	mLslvlMark := make(map[int]struct{})
 
 	bLocGrp, types := brktLoc(xstr)
 	cLocGrp, types := conTxtLoc(xstr, bLocGrp, types)
 	bcLocGrp := locMerge(bLocGrp, cLocGrp) // bracket & content
 
 	sb := &sBuilder{}
-	prevLvl, onlyCont := 0, false
+	singleCont, plainList := false, false
 
 	sb.Grow(len(xstr) * 2)
 	sb.WriteString("{")
 	for _, loc := range bcLocGrp {
 		s, e := loc[0], loc[1]
-		sb = cat4json(sb, xstr[s:e], types[s], &mLvlEle, &stk, &prevLvl, &onlyCont)
+		sb = cat4json(sb, xstr[s:e], types[s], &mLvlEle, &stk, &singleCont, &plainList, &stk4lslvl, &mLslvlMark)
 	}
 	sb.WriteString("\n}")
 

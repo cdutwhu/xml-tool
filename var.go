@@ -20,9 +20,19 @@ var (
 	sTrim         = strings.Trim
 	sHasPrefix    = strings.HasPrefix
 	sHasSuffix    = strings.HasSuffix
+	sContains     = strings.Contains
 	sReplace      = strings.Replace
 	sReplaceAll   = strings.ReplaceAll
 	rxMustCompile = regexp.MustCompile
+
+	sHasAnySuffix = func(s string, suffix ...string) bool {
+		for _, suf := range suffix {
+			if sHasSuffix(s, suf) {
+				return true
+			}
+		}
+		return false
+	}
 )
 
 type (
@@ -33,6 +43,4 @@ var (
 	rxTag      = rxMustCompile(`<\w+[\s/>]`)
 	rxHead     = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
 	rxAttrPart = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
-	// rxExtComma   = rxMustCompile(`,[\s\n\r]*}`)
-	// rxContNoAttr = rxMustCompile(`\{[\s\n\r]*"#content":\s+"?[^"]*"?[\s\n\r]*\}`)
 )
