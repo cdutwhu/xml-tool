@@ -14,28 +14,32 @@ import (
 func TestMkJSON(t *testing.T) {
 	misc.TrackTime(time.Now())
 	dir := "./examples/"
+
+	SetIgnrAttr(
+		"xsi:nil",
+		"xmlns:xsd",
+		"xmlns:xsi",
+		"xmlns",
+	)
+	SetSuf4LsEle(
+		`List": `,
+		`MedicalAlertMessages": `,
+		`OtherNames": `,
+		`CountriesOfCitizenship": `,
+		`CountriesOfResidency": `,
+		`YearLevels": `,
+		`IdentityAssertions": `,
+		`LearningStandards": `,
+		`RelatedLearningStandardItems": `,
+		`AttendanceTimes": `,
+		`PeriodAttendances": `,
+	)
+
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
 			fPln("--->", xmlfile)
 
-			switch xmlfile {
-			case "CalendarSummary_0.xml", "Identity_1.xml", "Identity_2.xml", "LearningResource_0.xml":
-				return nil
-			case "LearningStandardDocument_0.xml", "LearningStandardItem_0.xml":
-				return nil
-			case "SchoolInfo_0.xml", "StaffAssignment_0.xml":
-				return nil
-			case "StaffPersonal_0.xml", "StudentActivityInfo_0.xml":
-				return nil
-			case "StudentAttendanceTimeList_0.xml", "StudentAttendanceTimeList_1.xml":
-				return nil
-			case "StudentContactPersonal_0.xml":
-				return nil
-			case "StudentPersonal_0.xml":
-				return nil
-			}
-
-			// if xmlfile != "Debug3.xml" {
+			// if xmlfile != "StudentPersonal_0.xml" {
 			// 	return nil
 			// }
 
@@ -46,6 +50,7 @@ func TestMkJSON(t *testing.T) {
 				ioutil.WriteFile(fSf("debug_%s.json", xmlfile), []byte(jstr), 0666)
 				panic("error on MkJSON")
 			}
+
 			//if xmlfile == "CensusCollection_0.xml" {
 			ioutil.WriteFile(fSf("record_%s.json", xmlfile), []byte(jstr), 0666)
 			//}
@@ -55,6 +60,27 @@ func TestMkJSON(t *testing.T) {
 }
 
 func BenchmarkMkJSON(b *testing.B) {
+
+	SetIgnrAttr(
+		"xsi:nil",
+		"xmlns:xsd",
+		"xmlns:xsi",
+		"xmlns",
+	)
+	SetSuf4LsEle(
+		`List": `,
+		`MedicalAlertMessages": `,
+		`OtherNames": `,
+		`CountriesOfCitizenship": `,
+		`CountriesOfResidency": `,
+		`YearLevels": `,
+		`IdentityAssertions": `,
+		`LearningStandards": `,
+		`RelatedLearningStandardItems": `,
+		`AttendanceTimes": `,
+		`PeriodAttendances": `,
+	)
+
 	for n := 0; n < b.N; n++ {
 		// misc.TrackTime(time.Now())
 		dir := "./examples/"
@@ -67,9 +93,6 @@ func BenchmarkMkJSON(b *testing.B) {
 					fPln(jstr)
 					panic("error on MkJSON")
 				}
-				// if xmlfile == "Activity_2.xml" {
-				// 	fPln(jstr)
-				// }
 			}
 			return nil
 		})

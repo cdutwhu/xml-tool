@@ -3,16 +3,19 @@ package xmltool
 var (
 	contAttrName = "#content"
 	attrPrefix   = "@"
-	ignoreAttr   = []string{
-		"xsi:nil",
-		"xmlns:xsd",
-		"xmlns:xsi",
-		"xmlns",
-	}
-	listMark = "List"
-	chk4LM   = listMark + `": `
-	// lenOfLM  = len(chk4LM)
+	ignoreAttr   = []string{}
+	suf4LsEleGrp = []string{}
 )
+
+// SetIgnrAttr :
+func SetIgnrAttr(attrGrp ...string) {
+	ignoreAttr = append(ignoreAttr, attrGrp...)
+}
+
+// SetSuf4LsEle :
+func SetSuf4LsEle(sufGrp ...string) {
+	suf4LsEleGrp = append(suf4LsEleGrp, sufGrp...)
+}
 
 // if incoming-part is neither <start> nor <whole/> type, return both nil
 func attrInfo(swBrktPart string, ignore ...string) (attrs []string, mav map[string]string) {
@@ -117,7 +120,7 @@ func cat4json(
 		case ' ': // step into a sub object(s)
 
 			// list-elements bunch checking ...
-			if buf := sb.String(); sHasAnySuffix(buf, chk4LM) {
+			if buf := sb.String(); sHasAnySuffix(buf, suf4LsEleGrp...) {
 				stk4lslvl.push(lvl)
 			}
 
