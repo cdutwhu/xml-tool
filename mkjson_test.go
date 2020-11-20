@@ -44,7 +44,7 @@ func TestMkJSON(t *testing.T) {
 			// }
 
 			bytes, _ := ioutil.ReadFile(dir + xmlfile)
-			jstr := MkJSON(string(bytes), "", "")
+			jstr := MkJSON(string(bytes))
 
 			if !jt.IsValid(jstr) {
 				ioutil.WriteFile(fSf("debug_%s.json", xmlfile), []byte(jstr), 0666)
@@ -88,7 +88,7 @@ func BenchmarkMkJSON(b *testing.B) {
 			if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
 				// fPln("--->", xmlfile)
 				bytes, _ := ioutil.ReadFile(dir + xmlfile)
-				jstr := MkJSON(string(bytes), "", "")
+				jstr := MkJSON(string(bytes))
 				if !jt.IsValid(jstr) {
 					fPln(jstr)
 					panic("error on MkJSON")

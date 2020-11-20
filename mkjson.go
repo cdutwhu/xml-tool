@@ -7,6 +7,20 @@ var (
 	suf4LsEleGrp = []string{}
 )
 
+// SetContAttrName :
+func SetContAttrName(name string) {
+	if name != "" {
+		contAttrName = name
+	}
+}
+
+// SetAttrPrefix :
+func SetAttrPrefix(prefix string) {
+	if prefix != "" {
+		attrPrefix = prefix
+	}
+}
+
 // SetIgnrAttr :
 func SetIgnrAttr(attrGrp ...string) {
 	ignoreAttr = append(ignoreAttr, attrGrp...)
@@ -238,13 +252,7 @@ func cat4json(
 }
 
 // MkJSON :
-func MkJSON(xstr, nameOfContAttr, prefixOfAttr string) string {
-	if nameOfContAttr != "" {
-		contAttrName = nameOfContAttr
-	}
-	if prefixOfAttr != "" {
-		attrPrefix = prefixOfAttr
-	}
+func MkJSON(xstr string) string {
 
 	stk, stk4lslvl := stack{}, stack{}
 	mLvlEle := make(map[int]string)
