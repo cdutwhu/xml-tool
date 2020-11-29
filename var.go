@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"regexp"
 	"strings"
+
+	stk "github.com/cdutwhu/gotil/stack"
 )
 
 var (
@@ -37,6 +39,7 @@ var (
 
 type (
 	sBuilder = strings.Builder
+	stack    = stk.Stack
 )
 
 var (

@@ -1,0 +1,133 @@
+<StudentPersonal
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RefId="3b29cd65-0641-4526-85b5-936b5eff89a8"
+    xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+    <AlertMessages xsi:nil="true" />
+    <MedicalAlertMessages xsi:nil="true" />
+    <LocalId>996421153</LocalId>
+    <StateProvinceId />
+    <ElectronicIdList xsi:nil="true" />
+    <OtherIdList>
+        <OtherId Type="JurisdictionId">9</OtherId>
+        <OtherId Type="SectorStudentId">14671</OtherId>
+        <OtherId Type="DiocesanStudentId"></OtherId>
+        <OtherId Type="TAAStudentId">996421153</OtherId>
+        <OtherId Type="OtherStudentId">79653</OtherId>
+        <OtherId Type="NationalStudentId"></OtherId>
+        <OtherId Type="PreviousLocalStudentId"></OtherId>
+        <OtherId Type="PreviousSectorStudentId"></OtherId>
+        <OtherId Type="PreviousDiocesanStudentId"></OtherId>
+        <OtherId Type="PreviousOtherStudentId"></OtherId>
+        <OtherId Type="PreviousTAAStudentId"></OtherId>
+        <OtherId Type="PreviousNationalStudentId"></OtherId>
+        <OtherId Type="PreviousNAPPlatformStudentId"></OtherId>
+        <OtherId Type="NAPPlatformStudentId">R100000034G</OtherId>
+        <OtherId Type="PreviousJurisdictionStudentId"></OtherId>
+        <OtherId Type="OtherSchoolId"></OtherId>
+        <OtherId Type="Locality"></OtherId>
+    </OtherIdList>
+    <PersonInfo>
+        <Name Type="LGL">
+            <Title xsi:nil="true" />
+            <FamilyName>Taylor</FamilyName>
+            <GivenName>Mattie</GivenName>
+            <MiddleName xsi:nil="true" />
+            <PreferredFamilyName xsi:nil="true" />
+            <PreferredGivenName xsi:nil="true" />
+            <Suffix xsi:nil="true" />
+            <FullName xsi:nil="true" />
+        </Name>
+        <OtherNames xsi:nil="true" />
+        <Demographics>
+            <IndigenousStatus>3</IndigenousStatus>
+            <Sex>2</Sex>
+            <BirthDate>2009-02-25</BirthDate>
+            <PlaceOfBirth xsi:nil="true" />
+            <StateOfBirth xsi:nil="true" />
+            <CountryOfBirth>1101</CountryOfBirth>
+            <CountriesOfCitizenship xsi:nil="true" />
+            <CountriesOfResidency xsi:nil="true" />
+            <EnglishProficiency xsi:nil="true" />
+            <LanguageList>
+                <Language>
+                    <Code>1201</Code>
+                    <OtherCodeList xsi:nil="true" />
+                    <Dialect xsi:nil="true" />
+                </Language>
+            </LanguageList>
+            <DwellingArrangement xsi:nil="true" />
+            <Religion xsi:nil="true" />
+            <ReligiousEventList xsi:nil="true" />
+            <ReligiousRegion xsi:nil="true" />
+            <VisaSubClass />
+            <VisaStatisticalCode xsi:nil="true" />
+            <VisaSubClassList xsi:nil="true" />
+        </Demographics>
+        <AddressList>
+            <Address Type="0123" Role="012A">
+                <Street>
+                    <Line1 />
+                    <Line2 />
+                    <Line3 xsi:nil="true" />
+                    <Complex xsi:nil="true" />
+                    <StreetNumber xsi:nil="true" />
+                    <StreetPrefix xsi:nil="true" />
+                    <StreetName xsi:nil="true" />
+                    <StreetType xsi:nil="true" />
+                    <StreetSuffix xsi:nil="true" />
+                    <ApartmentType xsi:nil="true" />
+                    <ApartmentNumberPrefix xsi:nil="true" />
+                    <ApartmentNumber xsi:nil="true" />
+                    <ApartmentNumberSuffix xsi:nil="true" />
+                </Street>
+                <City />
+                <StateProvince />
+                <PostalCode />
+                <GridLocation xsi:nil="true" />
+                <RadioContact xsi:nil="true" />
+                <Community xsi:nil="true" />
+                <LocalId xsi:nil="true" />
+                <AddressGlobalUID xsi:nil="true" />
+                <StatisticalAreas xsi:nil="true" />
+            </Address>
+        </AddressList>
+        <PhoneNumberList xsi:nil="true" />
+        <EmailList xsi:nil="true" />
+        <HouseholdContactInfoList xsi:nil="true" />
+    </PersonInfo>
+    <ProjectedGraduationYear xsi:nil="true" />
+    <OnTimeGraduationYear xsi:nil="true" />
+    <GraduationDate xsi:nil="true" />
+    <MostRecent>
+        <SchoolLocalId />
+        <HomeroomLocalId xsi:nil="true" />
+        <YearLevel>
+            <Code>3</Code>
+        </YearLevel>
+        <Parent1Language>1201</Parent1Language>
+        <Parent2Language>1201</Parent2Language>
+        <Parent1EmploymentType>4</Parent1EmploymentType>
+        <Parent2EmploymentType>1</Parent2EmploymentType>
+        <Parent1SchoolEducationLevel>2</Parent1SchoolEducationLevel>
+        <Parent2SchoolEducationLevel>1</Parent2SchoolEducationLevel>
+        <Parent1NonSchoolEducation>7</Parent1NonSchoolEducation>
+        <Parent2NonSchoolEducation>5</Parent2NonSchoolEducation>
+        <LocalCampusId />
+        <SchoolACARAId>21213</SchoolACARAId>
+        <TestLevel>
+            <Code>3</Code>
+        </TestLevel>
+        <Homegroup xsi:nil="true" />
+        <ClassCode>3B</ClassCode>
+        <FFPOS>2</FFPOS>
+        <ReportingSchoolId />
+        <OtherEnrollmentSchoolACARAId />
+    </MostRecent>
+    <EducationSupport>N</EducationSupport>
+    <HomeSchooledStudent>N</HomeSchooledStudent>
+    <Sensitive>N</Sensitive>
+    <OfflineDelivery>N</OfflineDelivery>
+    <PrePrimaryEducation xsi:nil="true" />
+    <SIF_Metadata xsi:nil="true" />
+    <SIF_ExtendedElements xsi:nil="true" />
+</StudentPersonal>

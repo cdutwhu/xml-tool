@@ -75,7 +75,7 @@ func cat4json(
 ) *sBuilder {
 
 	ele := ""
-	lvl := stk.len()
+	lvl := stk.Len()
 	ind := xIndent[lvl]
 	appInd := func() string {
 		return xIndent[len(*mLslvlMark)]
@@ -104,11 +104,11 @@ func cat4json(
 		switch partType {
 		case sBrkt:
 			(*mLvlEle)[lvl] = ele // root is lvl0
-			stk.push(ele)
+			stk.Push(ele)
 		case eBrkt:
 			(*mLvlEle)[lvl] = ""
-			if top, ok := stk.peek(); ok && top == part[2:len(part)-1] {
-				stk.pop()
+			if top, ok := stk.Peek(); ok && top == part[2:len(part)-1] {
+				stk.Pop()
 			}
 		}
 	}()
@@ -122,7 +122,7 @@ func cat4json(
 		ele = ele[1 : len(ele)-1]
 
 		if *plainList {
-			if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl {
+			if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl {
 				break
 			}
 		}
@@ -135,11 +135,11 @@ func cat4json(
 
 			// list-elements bunch checking ...
 			if buf := sb.String(); sHasAnySuffix(buf, suf4LsEleGrp...) {
-				stk4lslvl.push(lvl)
+				stk4lslvl.Push(lvl)
 			}
 
 			// list CPLX element begin, 1st list element
-			if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl-1 {
+			if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl-1 {
 				if _, ok := (*mLslvlMark)[lslvl.(int)]; !ok {
 					(*mLslvlMark)[lslvl.(int)] = struct{}{}
 					tracePrt("[\n" + ind + appInd() + "{")
@@ -162,7 +162,7 @@ func cat4json(
 		attrs, mav := attrInfo(part, ignoreAttr...)
 		for i, attr := range attrs {
 			if i == 0 {
-				if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl {
+				if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl {
 					if _, ok := (*mLslvlMark)[lslvl.(int)]; !ok {
 						(*mLslvlMark)[lslvl.(int)] = struct{}{}
 						tracePrt("[\n" + ind + appInd() + "\t{")
@@ -210,7 +210,7 @@ func cat4json(
 		case ' ': // here text is the first & only sub
 			*singleCont = true
 
-			if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl-1 {
+			if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl-1 {
 				if _, ok := (*mLslvlMark)[lslvl.(int)]; !ok {
 					(*mLslvlMark)[lslvl.(int)] = struct{}{}
 					tracePrt("[\n" + ind + appInd())
@@ -224,11 +224,11 @@ func cat4json(
 	case eBrkt: // pop
 
 		// end list-element bunch
-		if lslvl, ok := stk4lslvl.peek(); ok && lslvl == lvl {
+		if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl {
 			if _, ok := (*mLslvlMark)[lslvl.(int)]; ok {
 				tracePrt("\n" + ind + appInd() + "]")
 				delete(*mLslvlMark, lslvl.(int))
-				stk4lslvl.pop()
+				stk4lslvl.Pop()
 				*singleCont = false
 				*plainList = false
 			}

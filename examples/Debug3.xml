@@ -1,0 +1,104 @@
+<NAPStudentResponseSet RefId="c72411be-e1f2-4ffe-b8aa-fa270f8dc0f8" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+    <ReportExclusionFlag>false</ReportExclusionFlag>
+    <CalibrationSampleFlag>false</CalibrationSampleFlag>
+    <EquatingSampleFlag>false</EquatingSampleFlag>
+    <PathTakenForDomain xsi:nil="true" />
+    <ParallelTest xsi:nil="true" />
+    <StudentPersonalRefId>9d3bdaab-7e88-493d-befd-1453ff279ee5</StudentPersonalRefId>
+    <PlatformStudentIdentifier>R100000036S</PlatformStudentIdentifier>
+    <NAPTestRefId>5c39a5af-d944-4150-ac25-4629ee3d362b</NAPTestRefId>
+    <NAPTestLocalId>x00106808_Writing</NAPTestLocalId> 
+    <DomainScore>
+        <RawScore>1.00</RawScore>
+        <ScaledScoreValue>575.00</ScaledScoreValue>
+        <ScaledScoreLogitValue>19.45</ScaledScoreLogitValue>
+        <ScaledScoreStandardError>19.62</ScaledScoreStandardError>
+        <ScaledScoreLogitStandardError>19.26</ScaledScoreLogitStandardError>
+        <StudentDomainBand>8</StudentDomainBand>
+        <StudentProficiency>Proficient</StudentProficiency>
+        <PlausibleScaledValueList>
+          <PlausibleScaledValue>14</PlausibleScaledValue>
+          <PlausibleScaledValue>15</PlausibleScaledValue>
+          <PlausibleScaledValue>16</PlausibleScaledValue>
+          <PlausibleScaledValue>17</PlausibleScaledValue>
+          <PlausibleScaledValue>18</PlausibleScaledValue>
+        </PlausibleScaledValueList>
+    </DomainScore> 
+    <TestletList>
+        <Testlet>
+            <NAPTestletRefId>db8b40dc-6ce9-49ee-a436-5048b3caca3d</NAPTestletRefId>
+            <NAPTestletLocalId>x00102729</NAPTestletLocalId>
+            <ItemResponseList>
+                <ItemResponse>
+                    <NAPTestItemRefId>2c6c4f3d-298e-49ac-a2dd-8ff9ebfcd85d</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00102730</NAPTestItemLocalId>
+                    <Response>&lt;p&gt;This is a sample of 600 words&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;maiores&lt;/strong&gt; ipsum quia voluptatibus minus soluta eaque aspernatur, recusandae architecto sit omnis minus non odit aspernatur ipsam est natus dicta saepe sed vel repellendus distinctio laborum sit suscipit reiciendis inventore consectetur neque magni dolore minima quas suscipit et vel quo assumenda excepturi explicabo rerum est qui dolore quia earum odio dolorem autem laboriosam est harum qui repudiandae numquam dolore molestiae esse possimus incidunt qui voluptatem similique in architecto est iste est sed ut vel quia enim enim impedit ut in exercitationem repudiandae labore similique qui illo repellendus recusandae autem voluptatem neque et exercitationem mollitia exercitationem nihil animi sit necessitatibus praesentium necessitatibus sed qui id occaecati voluptatem quibusdam nesciunt possimus voluptatibus consequatur odit ipsa quo &lt;span style="font-size:16px"&gt;libero&lt;/span&gt; id dolor aut itaque totam &lt;/p&gt;
+&lt;p&gt;adipisci cum necessitatibus voluptates autem. et architecto dicta mollitia perspiciatis totam dolor minus non ut et sapiente. nihil vitae suscipit adipisci et nesciunt aut recusandae corporis rerum molestiae ducimus perferendis harum quis sit accusamus &lt;span style="text-decoration:underline"&gt;facere&lt;/span&gt; voluptate distinctio dignissimos. cum et laudantium fugit omnis enim recusandae. dolores cupiditate quia reprehenderit necessitatibus architecto harum earum aliquid esse laboriosam velit ut provident &lt;span style="text-decoration:underline"&gt;autem&lt;/span&gt; deleniti et aliquam doloribus, non error ea explicabo repudiandae assumenda vitae vero accusamus qui dolorum possimus et et laboriosam alias consectetur dignissimos explicabo eos temporibus. veniam velit labore. tempora &lt;em&gt;provident,&lt;/em&gt; voluptatum adipisci deleniti alias non aut velit culpa qui iusto non neque rerum reiciendis qui eos labore sit delectus sequi rem magni sunt qui perferendis &lt;span style="font-size:16px"&gt;deleniti&lt;/span&gt; aut illo consequatur omnis&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Rationarium Incompositum I&lt;/li&gt;
+&lt;li&gt;Rationarium Incompositum II&lt;/li&gt;
+&lt;li&gt;Rationarium Incompositum III&lt;/li&gt;&lt;/p&gt;
+ &lt;p&gt;maiores nihil ab architecto rerum ut autem nihil velit voluptas velit est atque nemo aliquam eius laboriosam ut dolor id pariatur vel fuga nulla eos dolore non velit similique quia libero omnis. nam excepturi eligendi voluptatibus odio et suscipit omnis saepe suscipit et iure aliquam praesentium suscipit sit sunt aliquid cumque sapiente &lt;span style="font-size:16px"&gt;incidunt&lt;/span&gt; sapiente qui minus labore ut voluptas quia sit ea quia est magni a consectetur ut praesentium error doloremque eum voluptatem doloribus dolorem quas dolore voluptatum. eligendi dignissimos porro possimus omnis occaecati corrupti qui iusto quia et quia et velit qui ut quibusdam vel deserunt quis repudiandae assumenda voluptate vero doloribus error nostrum vel iure in &lt;span style="text-decoration:underline"&gt;expedita&lt;/span&gt; a eius tempore neque dolores porro doloribus nisi fugiat ut enim ea ut optio ea earum sit laboriosam ipsum doloremque at voluptatem quis. voluptas laboriosam quae tempora labore ipsam accusamus ducimus eligendi accusantium, numquam, voluptates et id sint adipisci aut aliquid neque vitae velit illo repellat voluptatem &lt;em&gt;sed&lt;/em&gt; voluptate ut explicabo saepe qui consequuntur totam unde aut possimus est in sit nesciunt doloribus eum velit illum sequi odio voluptatem dolore harum aut ab nobis quisquam sed &lt;strong&gt;aperiam&lt;/strong&gt; libero voluptas iste explicabo, ut provident non praesentium sit aut numquam id sed deleniti ea perferendis omnis dignissimos asperiores &lt;/p&gt;
+&lt;p style="text-align:center"&gt;accusamus sed qui quia velit et et deserunt perspiciatis excepturi. quia velit consequuntur doloribus et dolores velit vel quos &lt;strong&gt;officiis&lt;/strong&gt; modi et velit dolorem quisquam ut nam qui quidem quod sapiente modi molestiae sed est et illo fugit qui expedita similique eligendi saepe eum velit sunt aliquid error inventore quam beatae molestiae expedita nam dolore qui autem occaecati quis fuga dolorum facilis sed, quia sapiente quisquam est perferendis dolorem voluptas sequi et porro officiis blanditiis est repudiandae aut ea est similique unde mollitia velit nemo neque suscipit asperiores a non &lt;em&gt;enim&lt;/em&gt; fuga quaerat culpa facilis ex est non facilis, qui ad et autem dolor sapiente consequatur facilis ipsum sint, ab &lt;/p&gt;
+&lt;p style="text-align:left"&gt;aut alias fugit vel et enim incidunt eum mollitia quasi&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;Rationarium Compositum I&lt;/li&gt;
+&lt;li&gt;Rationarium Compositum II&lt;/li&gt;
+&lt;li&gt;Rationarium Compositum III&lt;/li&gt;&lt;/p&gt;
+ &lt;p&gt;voluptate harum quo ea quaerat voluptatem voluptatem, quisquam rem aut&lt;/p&gt;</Response>
+                    <ResponseCorrectness>Correct</ResponseCorrectness>
+                    <Score>1</Score>
+                    <LapsedTimeItem>PT50S</LapsedTimeItem>
+                    <SequenceNumber>1</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList>
+                      <Subscore>
+                            <SubscoreType>Text Structure</SubscoreType>
+                            <SubscoreValue>1</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Ideas</SubscoreType>
+                            <SubscoreValue>2</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Character and setting</SubscoreType>
+                            <SubscoreValue>5</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Audience</SubscoreType>
+                            <SubscoreValue>6</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Vocabulary</SubscoreType>
+                            <SubscoreValue>5</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Cohesion</SubscoreType>
+                            <SubscoreValue>6</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Paragraphing</SubscoreType>
+                            <SubscoreValue>1</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Sentence structure</SubscoreType>
+                            <SubscoreValue>3</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Punctuation</SubscoreType>
+                            <SubscoreValue>6</SubscoreValue>
+                      </Subscore>
+                      <Subscore>
+                            <SubscoreType>Spelling</SubscoreType>
+                            <SubscoreValue>6</SubscoreValue>
+                      </Subscore>
+                    </SubscoreList>
+                </ItemResponse>        
+            </ItemResponseList>
+        </Testlet>
+    </TestletList> 
+  <SIF_Metadata xsi:nil="true" />
+  <SIF_ExtendedElements xsi:nil="true" />
+</NAPStudentResponseSet>

@@ -1,0 +1,29 @@
+<NAPEventStudentLink
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" RefId="5e8eb11e-1239-477d-b3ae-8ebf394fb968"
+    xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+    <StudentPersonalRefId>693f104f-c1f4-4cbb-a645-8bfe3038544a</StudentPersonalRefId>
+    <PlatformStudentIdentifier>R100000025H</PlatformStudentIdentifier>
+    <SchoolInfoRefId>02680eee-9fac-45bb-b510-aac339775b16</SchoolInfoRefId>
+    <SchoolACARAId>21213</SchoolACARAId>
+    <NAPTestRefId>53cbed39-96a1-4487-b52e-d28ec27813eb</NAPTestRefId>
+    <NAPTestLocalId>x00106805_Grammar and Punctuation</NAPTestLocalId>
+    <SchoolSector>NG</SchoolSector>
+    <SchoolGeolocation>15</SchoolGeolocation>
+    <ReportingSchoolName />
+    <ParticipationCode>P</ParticipationCode>
+    <ParticipationText>Present</ParticipationText>
+    <Date>2017-06-01</Date>
+    <StartTime>09:00:00</StartTime>
+    <Device xsi:nil="true" />
+    <LapsedTimeTest xsi:nil="true" />
+    <ExemptionReason xsi:nil="true" />
+    <PersonalDetailsChanged>false</PersonalDetailsChanged>
+    <PSIOtherIdMatch>false</PSIOtherIdMatch>
+    <PossibleDuplicate>false</PossibleDuplicate>
+    <DOBRange>true</DOBRange>
+    <TestDisruptionList xsi:nil="true" />
+    <Adjustment xsi:nil="true" />
+    <SIF_Metadata xsi:nil="true" />
+    <SIF_ExtendedElements xsi:nil="true" />
+</NAPEventStudentLink>

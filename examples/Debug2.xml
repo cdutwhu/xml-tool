@@ -1,0 +1,387 @@
+<NAPStudentResponseSet RefId="69f05e55-e6a4-441d-8012-5613da8e60b5"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+    <ReportExclusionFlag>false</ReportExclusionFlag>
+    <CalibrationSampleFlag>false</CalibrationSampleFlag>
+    <EquatingSampleFlag>false</EquatingSampleFlag>
+    <PathTakenForDomain>A:B:F</PathTakenForDomain>
+    <ParallelTest>A0:B1:F0</ParallelTest>
+    <StudentPersonalRefId>6b66b896-6cd2-4b20-bcdd-58dab00e1fe3</StudentPersonalRefId>
+    <PlatformStudentIdentifier>R100000032A</PlatformStudentIdentifier>
+    <NAPTestRefId>58dacd6e-a3aa-433f-8fc4-e13a4825eed9</NAPTestRefId>
+    <NAPTestLocalId>x00106801_Reading</NAPTestLocalId>
+    <TestletList>
+        <Testlet>
+            <NAPTestletRefId>e4e09743-8333-4f1e-82ff-beba0dbba99b</NAPTestletRefId>
+            <NAPTestletLocalId>x00101569</NAPTestletLocalId>
+            <ItemResponseList>
+                <ItemResponse>
+                    <NAPTestItemRefId>5c2e76fc-7c75-4999-8eb7-415db878d6e6</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101570</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>1</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>fc9c66b8-dc78-4920-bf5f-15e02e158dd7</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101571</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>2</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>e8b98942-5063-435e-817b-9b9f4088bf60</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101572</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>3</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>aa7ec475-956d-4d68-82c6-368a66352b4a</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101573</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>4</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>8b4aaa9c-6003-4760-bd2a-5cc2526aeb6e</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101574</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>5</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>928d737f-6502-4dc0-a37e-2882fc295b18</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101575</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>6</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>ea35b52e-b692-4687-a569-e8db89ca7029</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101576</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>7</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>b243e19e-0430-46e2-9973-30cf8d3c8c2e</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101577</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>8</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>ec2dfda0-0372-46c3-a28b-9b4aa59e8294</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101578</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>9</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>42c0eaf9-30ed-4e1d-8baf-d12a64c524ec</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101579</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>10</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>f27e3afe-4c9a-41c3-886a-1e7888588a13</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101580</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>11</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>acd4b4be-f400-4475-bdf5-2ac0ae3e739f</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101581</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>12</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>fe095d60-09ad-4db2-af74-52a1d6409bc4</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101582</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>13</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+            </ItemResponseList>
+        </Testlet>
+        <Testlet>
+            <NAPTestletRefId>f133b0a0-2db4-4a8f-ac1f-8eda8b97fa61</NAPTestletRefId>
+            <NAPTestletLocalId>x00101639</NAPTestletLocalId>
+            <ItemResponseList>
+                <ItemResponse>
+                    <NAPTestItemRefId>b41b5e9c-fae8-4f6a-a2db-3d4a4e2f6a3b</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101640</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>1</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>cc5e4995-8267-487b-b59f-5d6e2be6e9e1</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101641</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>2</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>aff4a1e8-4d3b-4479-96eb-f030c97f1de9</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101642</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>3</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>71ee16ab-cd98-4944-a03c-7e0f4a80f786</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101643</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>4</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>b28b9f6b-1a17-4fbf-8a7c-086a510de950</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101644</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>5</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>d7324570-4a5e-4f5b-b695-de279ab40d9d</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101645</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>6</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>cadf9b39-7300-4538-acf7-503fc717f9c4</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101646</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>7</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>6798244a-bc21-49db-9d00-d66982429a49</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101647</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>8</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>997a30e4-7fa8-4a7f-8b27-f86b0135db3d</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101648</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>9</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>19f043a4-7007-4593-91ec-fe937e29cec4</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101649</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>10</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>ee61ce98-23a1-4999-bd15-33efd11e1d7d</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101650</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>11</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>46faaddf-1721-422b-aac1-ac69715187b7</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101651</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>12</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>5cc602ed-4cec-4803-bbb5-9e17ae7d6a6c</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101652</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>13</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+            </ItemResponseList>
+        </Testlet>
+        <Testlet>
+            <NAPTestletRefId>602c576a-fc75-4e9a-8e81-a3790618f4eb</NAPTestletRefId>
+            <NAPTestletLocalId>x00101723</NAPTestletLocalId>
+            <ItemResponseList>
+                <ItemResponse>
+                    <NAPTestItemRefId>89373c27-ff31-492b-92a2-403f250a3085</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101724</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>1</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>0933c8d6-8839-4a4f-a96d-9ce0d3093390</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101725</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>2</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>d2f169e6-6b97-46a1-b41d-3ef46eddaeb9</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101726</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>3</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>3534a912-00a4-47c2-b3e2-cdf049e44091</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101727</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>4</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>b66565c9-eaf7-4258-af80-e8329e9db4cb</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101728</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>5</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>1b17d209-e5d0-47d4-8fa1-0889f96e9d8e</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101729</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>6</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>e2415fc3-e407-45a5-886d-f8115f12fcb5</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101730</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>7</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>2719dbcd-4056-46f2-8858-ab81dd425d21</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101731</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>8</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>610e7050-59ee-41e6-996a-819614374071</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101732</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>9</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>216d160d-5826-4374-bdde-2a82c6499224</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101733</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>10</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>361a817e-9d70-45a4-96a8-181f8fce63ad</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101734</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>11</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>1a46db2f-3c62-423a-b301-adf0e6484f48</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101735</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>12</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+                <ItemResponse>
+                    <NAPTestItemRefId>c64331cd-9fe1-4bbe-a2de-fc9f8c4af68e</NAPTestItemRefId>
+                    <NAPTestItemLocalId>x00101736</NAPTestItemLocalId>
+                    <Response xsi:nil="true" />
+                    <ResponseCorrectness>NotAttempted</ResponseCorrectness>
+                    <SequenceNumber>13</SequenceNumber>
+                    <ItemWeight>1</ItemWeight>
+                    <SubscoreList xsi:nil="true" />
+                </ItemResponse>
+            </ItemResponseList>
+        </Testlet>
+    </TestletList>
+    <SIF_Metadata xsi:nil="true" />
+    <SIF_ExtendedElements xsi:nil="true" />
+</NAPStudentResponseSet>

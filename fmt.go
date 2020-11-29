@@ -154,18 +154,18 @@ func cat(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk
 	case sBrkt, wBrkt: // push
 		ele = rxTag.FindString(part)
 		ele = ele[1 : len(ele)-1]
-		if stk.len() > 0 {
+		if stk.Len() > 0 {
 			sb.WriteString("\n")
 		}
-		sb.WriteString(xIndent[stk.len()])
+		sb.WriteString(xIndent[stk.Len()])
 		if partType == sBrkt {
-			stk.push(ele)
+			stk.Push(ele)
 		}
 	case cText: // push
 	case eBrkt: // pop
 		ele = part[2 : len(part)-1]
-		if top, ok := stk.peek(); ok && top == ele {
-			stk.pop()
+		if top, ok := stk.Peek(); ok && top == ele {
+			stk.Pop()
 		}
 	case aQuot:
 	}

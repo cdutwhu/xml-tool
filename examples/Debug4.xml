@@ -1,0 +1,33 @@
+<NAPStudentResponseSet RefId="9d890142-193c-4e53-8bab-2bd77724dd8a"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.sifassociation.org/datamodel/au/3.4">
+    <ReportExclusionFlag>false</ReportExclusionFlag>
+    <CalibrationSampleFlag>true</CalibrationSampleFlag>
+    <EquatingSampleFlag>false</EquatingSampleFlag>
+    <PathTakenForDomain>GB</PathTakenForDomain>
+    <ParallelTest>B0</ParallelTest>
+    <StudentPersonalRefId>ae6b80cc-5e82-4e26-abf5-c88bface0741</StudentPersonalRefId>
+    <PlatformStudentIdentifier>R100000026P</PlatformStudentIdentifier>
+    <NAPTestRefId>53cbed39-96a1-4487-b52e-d28ec27813eb</NAPTestRefId>
+    <NAPTestLocalId>x00106805_Grammar and Punctuation</NAPTestLocalId>
+    <DomainScore>
+        <RawScore>0.00</RawScore>
+        <ScaledScoreValue>0.00</ScaledScoreValue>
+        <ScaledScoreLogitValue>18.24</ScaledScoreLogitValue>
+        <ScaledScoreStandardError>22.40</ScaledScoreStandardError>
+        <ScaledScoreLogitStandardError>18.46</ScaledScoreLogitStandardError>
+        <StudentDomainBand>0</StudentDomainBand>
+        <StudentProficiency>Proficient</StudentProficiency>
+        <PlausibleScaledValueList>
+            <PlausibleScaledValue>14</PlausibleScaledValue>
+            <PlausibleScaledValue>15</PlausibleScaledValue>
+            <PlausibleScaledValue>16</PlausibleScaledValue>
+            <PlausibleScaledValue>17</PlausibleScaledValue>
+            <PlausibleScaledValue>18</PlausibleScaledValue>
+        </PlausibleScaledValueList>
+    </DomainScore>
+    <TestletList> </TestletList>
+    <SIF_Metadata xsi:nil="true" />
+    <SIF_ExtendedElements xsi:nil="true" />
+</NAPStudentResponseSet>
