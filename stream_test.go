@@ -32,12 +32,11 @@ func TestNewXMLEleV2(t *testing.T) {
 		"NAPTestScoreSummary",
 	}
 
-	for range StreamEle(br, dataTypes...) {
+	for ele := range StreamEle(br, dataTypes...) {
 		count++
-		//if count < 10 {
-		// fPln(ele[:100])
-		// fPln(count, len(ele), ele[:30])
-		//}
+		if count < 100 {
+			fPln(count, len(ele))
+		}
 	}
 	fPln("total", count)
 }
