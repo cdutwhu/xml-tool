@@ -8,7 +8,7 @@ import (
 
 // StreamEle :
 func StreamEle(reader *bufio.Reader, elements ...string) chan string {
-	eleChan := make(chan string, 2048)
+	eleChan := make(chan string, 4096)
 
 	go func() {
 
@@ -46,10 +46,10 @@ func StreamEle(reader *bufio.Reader, elements ...string) chan string {
 
 				// still looking for closeTag
 				// bigger than max buf,
-				if len(data) >= maxScanToken {
+				if len(data) >= bufio.MaxScanTokenSize {
 					jump4close = true
 
-					advance, token = maxScanToken, data
+					advance, token = bufio.MaxScanTokenSize, data
 					return advance, token, nil
 				}
 				return 0, nil, nil
@@ -76,42 +76,60 @@ func StreamEle(reader *bufio.Reader, elements ...string) chan string {
 
 				// correct open BUT could not find closeTag
 				// bigger than max buf,
-				if len(data) >= maxScanToken {
+				if len(data) >= bufio.MaxScanTokenSize {
 					jump4close = true
 
-					advance, token = maxScanToken, data
+					advance, token = bufio.MaxScanTokenSize, data
 					return advance, token, nil
 				}
 				return 0, nil, nil
 			}
 
 			// couldn't find openTag, reach the max buf, skip max, return 0
-			if len(data) >= maxScanToken {
-				advance, token = maxScanToken, []byte{0}
+			if len(data) >= bufio.MaxScanTokenSize {
+				advance, token = bufio.MaxScanTokenSize, []byte{0}
 				return advance, token, nil
 			}
 			return 0, nil, nil
 		}
 
 		scanner := bufio.NewScanner(reader)
+		scanBuf := make([]byte, bufio.MaxScanTokenSize)
+		scanner.Buffer(scanBuf, bufio.MaxScanTokenSize)
 		scanner.Split(split)
-		// scanner.Buffer(make([]byte, 4096), bufio.MaxScanTokenSize)
-
 		sb := sBuilder{}
-		sb.Grow(8192)
+		sb.Grow(bufio.MaxScanTokenSize)
+
 		for scanner.Scan() {
 			str := scanner.Text()
 			if len(str) == 1 {
 				continue
 			}
-
 			sb.WriteString(str)
-
-			if len(str) < maxScanToken {
+			if len(str) < bufio.MaxScanTokenSize {
 				eleChan <- sb.String()
 				sb.Reset()
 			}
 		}
+
+		// useScanBuf := true
+		// for scanner.Scan() {
+		// 	str := scanner.Text()
+		// 	if len(str) == 1 {
+		// 		useScanBuf = false
+		// 		continue
+		// 	}
+		// 	if useScanBuf {
+		// 		eleChan <- string(scanBuf)
+		// 	} else {
+		// 		sb.WriteString(str)
+		// 		if len(str) < bufio.MaxScanTokenSize {
+		// 			eleChan <- sb.String()
+		// 			sb.Reset()
+		// 			useScanBuf = true
+		// 		}
+		// 	}
+		// }
 
 		close(eleChan)
 	}()

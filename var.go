@@ -47,7 +47,3 @@ var (
 	rxHead     = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
 	rxAttrPart = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
 )
-
-const (
-	maxScanToken = 65536
-)
