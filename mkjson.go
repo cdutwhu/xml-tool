@@ -15,16 +15,12 @@ func SetSlim(beSlim bool) {
 
 // SetContAttrName :
 func SetContAttrName(name string) {
-	if name != "" {
-		contAttrName = name
-	}
+	contAttrName = name
 }
 
 // SetAttrPrefix :
 func SetAttrPrefix(prefix string) {
-	if prefix != "" {
-		attrPrefix = prefix
-	}
+	attrPrefix = prefix
 }
 
 // SetIgnrAttr :
