@@ -16,13 +16,15 @@ func TestMkJSON(t *testing.T) {
 	dir := "./examples/"
 
 	SetSlim(false)
+	SetAttrPrefix("")
+	SetContAttrName("value")
 	SetIgnrAttr(
 		"xsi:nil",
 		"xmlns:xsd",
 		"xmlns:xsi",
 		"xmlns",
 	)
-	SetSuf4LsEle(
+	SetSuffix4List(
 		`List`,
 		`MedicalAlertMessages`,
 		`OtherNames`,
@@ -69,7 +71,7 @@ func BenchmarkMkJSON(b *testing.B) {
 		"xmlns:xsi",
 		"xmlns",
 	)
-	SetSuf4LsEle(
+	SetSuffix4List(
 		`List`,
 		`MedicalAlertMessages`,
 		`OtherNames`,
@@ -92,11 +94,13 @@ func BenchmarkMkJSON(b *testing.B) {
 					return nil
 				}
 				bytes, _ := ioutil.ReadFile(dir + xmlfile)
-				jstr := MkJSON(string(bytes))
-				if !jt.IsValid(jstr) {
-					// fPln(jstr)
-					panic("error on MkJSON")
-				}
+				MkJSON(string(bytes))
+
+				// jstr := MkJSON(string(bytes))
+				// if !jt.IsValid(jstr) {
+				// 	fPln(jstr)
+				// 	panic("error on MkJSON")
+				// }
 			}
 			return nil
 		})

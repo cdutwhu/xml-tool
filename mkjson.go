@@ -1,6 +1,7 @@
 package xmltool
 
 var (
+	setSlim      = false
 	slim         = false
 	contAttrName = "#content"
 	attrPrefix   = "@"
@@ -11,6 +12,7 @@ var (
 // SetSlim :
 func SetSlim(beSlim bool) {
 	slim = beSlim
+	setSlim = true
 }
 
 // SetContAttrName :
@@ -28,8 +30,12 @@ func SetIgnrAttr(attrGrp ...string) {
 	ignoreAttr = append(ignoreAttr, attrGrp...)
 }
 
-// SetSuf4LsEle :
-func SetSuf4LsEle(sufGrp ...string) {
+// SetSuffix4List :
+func SetSuffix4List(sufGrp ...string) {
+	if !setSlim {
+		panic("MUST explicitly 'SetSlim' before setting List")
+	}
+
 	space := " "
 	if slim {
 		space = ""
