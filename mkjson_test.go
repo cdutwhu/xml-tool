@@ -15,7 +15,7 @@ func TestMkJSON(t *testing.T) {
 	defer misc.TrackTime(time.Now())
 	dir := "./examples/"
 
-	SetSlim(false)
+	SetSlim(true)
 	SetAttrPrefix("")
 	SetContAttrName("value")
 	SetIgnrAttr(
@@ -54,7 +54,7 @@ func TestMkJSON(t *testing.T) {
 			}
 
 			//if xmlfile == "CensusCollection_0.xml" {
-			ioutil.WriteFile(fSf("./output/record_%s.json", xmlfile), []byte(jstr), 0666)
+			ioutil.WriteFile(fSf("./out/record_%s.json", xmlfile), []byte(jstr), 0666)
 			//}
 		}
 		return nil

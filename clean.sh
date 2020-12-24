@@ -2,4 +2,5 @@
 
 set -e
 
-rm ./output/*.json
+rm -rf ./output/*.json
+rm -rf ./out/*.json

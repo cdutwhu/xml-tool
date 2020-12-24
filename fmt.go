@@ -144,7 +144,6 @@ NEXT_LG:
 		}
 		merged = append(merged, loc)
 	}
-
 	return
 }
 
