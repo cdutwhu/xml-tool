@@ -19,9 +19,10 @@ func TestRmEmptyEle(T *testing.T) {
 
 	SetSlim(false)
 	SetSuffix4List("List")
-	
+
 	remainder := RmEmptyEle(xml, 3, true)
 	fPln(remainder)
+	// ioutil.WriteFile("debug.xml", []byte(remainder), 0666)
 
 	fPln("-----------------------")
 
@@ -38,7 +39,7 @@ func BenchmarkRmEmptyEle(b *testing.B) {
 		xml := string(bytes)
 		SetSlim(false)
 		SetSuffix4List("List")
-		
+
 		remainder := RmEmptyEle(xml, 3, true)
 		MkJSON(remainder)
 	}

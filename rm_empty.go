@@ -76,7 +76,7 @@ func RmEmptyEle(xml string, empType int, rmEmptyLine bool) string {
 	case 0:
 		return xml
 	default:
-		panic("empType: 1 <tag/>, 2 <tag></tag>, 3 both 1 & 2")
+		panic("empType: 1 <tag/>, 2 <tag></tag>, 3 both 1&2")
 	}
 
 	sb := sBuilder{}
@@ -94,18 +94,10 @@ func RmEmptyEle(xml string, empType int, rmEmptyLine bool) string {
 	sb.WriteString(xml[start:])
 	removed := sb.String()
 
-	// if rmEmptyLine {
-	// 	for {
-	// 		if sContains(removed, "\n\n") {
-	// 			removed = sReplaceAll(removed, "\n\n", "\n")
-	// 			continue
-	// 		} else if sContains(removed, "\r\n\r\n") {
-	// 			removed = sReplaceAll(removed, "\r\n\r\n", "\r\n")
-	// 			continue
-	// 		}
-	// 		break
-	// 	}
-	// }
+	if rmEmptyLine {
+		r := rxMustCompile(`(\n+\s+\n+)+`)
+		removed = r.ReplaceAllString(removed, "\n")
+	}
 
 	return removed
 }
