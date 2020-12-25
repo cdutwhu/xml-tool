@@ -24,11 +24,22 @@ func locEmptyEle2(xml string) (q queue.Queue) {
 	remainder := xml
 	offset := 0
 	for e := sIndex(remainder, "></"); e >= 0; e = sIndex(remainder, "></") {
+		enq := true
+
 		e += offset
 		s1 := sLastIndex(xml[:e], "<")
+		// exclude "</tag1></tag2>"
+		if xml[s1+1] == '/' {
+			enq = false
+		}
+
 		s2 := sIndex(xml[e+1:], ">") + e + 2
 		// fPln(s1, s2)
-		q.Enqueue([2]int{s1, s2})
+
+		if enq {
+			q.Enqueue([2]int{s1, s2})
+		}
+
 		remainder = xml[s2:]
 		offset = s2
 	}

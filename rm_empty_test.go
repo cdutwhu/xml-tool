@@ -6,28 +6,39 @@ import (
 	"time"
 
 	"github.com/cdutwhu/gotil/misc"
+	jt "github.com/cdutwhu/json-tool"
 )
 
 func TestRmEmptyEle(T *testing.T) {
 	defer misc.TrackTime(time.Now())
 
-	bytes, err := ioutil.ReadFile("./examples/n2sif_2.xml")
+	bytes, err := ioutil.ReadFile("./examples/err-json.xml")
 	if err != nil {
 		panic(err)
 	}
 	xml := string(bytes)
 
-	SetSlim(false)
-	SetSuffix4List("List")
+	if !IsValid(xml) {
+		panic("invalid xml")
+	}
 
-	remainder := RmEmptyEle(xml, 3, true)
-	fPln(remainder)
+	remainder := RmEmptyEle(xml, 3, false)
+	// fPln(remainder)
 	// ioutil.WriteFile("debug.xml", []byte(remainder), 0666)
+
+	if !IsValid(remainder) {
+		panic("invalid remainder")
+	}
 
 	fPln("-----------------------")
 
+	SetSlim(false)
+	SetSuffix4List("List")
 	jstr := MkJSON(remainder)
-	fPln(jstr)
+	if !jt.IsValid(jstr) {
+		panic("invalid jstr")
+	}
+	// fPln(jstr)
 }
 
 func BenchmarkRmEmptyEle(b *testing.B) {
