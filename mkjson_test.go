@@ -7,6 +7,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/cdutwhu/gotil/io"
 	"github.com/cdutwhu/gotil/misc"
 	jt "github.com/cdutwhu/json-tool"
 )
@@ -15,7 +16,7 @@ func TestMkJSON(t *testing.T) {
 	defer misc.TrackTime(time.Now())
 	dir := "./examples/"
 
-	SetSlim(true)
+	SetSlim(false)
 	SetAttrPrefix("")
 	SetContAttrName("value")
 	SetIgnrAttr(
@@ -37,24 +38,36 @@ func TestMkJSON(t *testing.T) {
 		`AttendanceTimes`,
 		`PeriodAttendances`,
 	)
+	SetNonstrPath(
+		"Activity/Points",
+		"Activity/ActivityWeight",
+		"Activity/MaxAttemptsAllowed",
+		"Activity/ActivityTime/Duration/value",
+	)
 
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
-			fPln("--->", xmlfile)
+
+			// if xmlfile != "Activity_0.xml" {
+			// 	return nil
+			// }
+
 			if xmlfile == "n2sif.xml" {
 				return nil
 			}
+
+			fPln("--->", xmlfile)
 
 			bytes, _ := ioutil.ReadFile(dir + xmlfile)
 			jstr := MkJSON(string(bytes))
 
 			if !jt.IsValid(jstr) {
-				ioutil.WriteFile(fSf("debug_%s.json", xmlfile), []byte(jstr), 0666)
+				io.MustWriteFile(fSf("debug_%s.json", sTrimSuffix(xmlfile, ".xml")), []byte(jstr))
 				panic("error on MkJSON")
 			}
 
 			//if xmlfile == "CensusCollection_0.xml" {
-			ioutil.WriteFile(fSf("./out/record_%s.json", xmlfile), []byte(jstr), 0666)
+			io.MustWriteFile(fSf("./out/record_%s.json", sTrimSuffix(xmlfile, ".xml")), []byte(jstr))
 			//}
 		}
 		return nil

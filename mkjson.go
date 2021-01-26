@@ -7,6 +7,7 @@ var (
 	attrPrefix   = "@"
 	ignoreAttr   = []string{}
 	suf4LsEleGrp = []string{}
+	mNonstrPath  = make(map[string]struct{})
 )
 
 // SetSlim :
@@ -28,6 +29,14 @@ func SetAttrPrefix(prefix string) {
 // SetIgnrAttr :
 func SetIgnrAttr(attrGrp ...string) {
 	ignoreAttr = append(ignoreAttr, attrGrp...)
+}
+
+// SetNonstrPath :
+func SetNonstrPath(nonstrPathGrp ...string) {
+	mNonstrPath = make(map[string]struct{})
+	for _, nsPath := range nonstrPathGrp {
+		mNonstrPath[nsPath] = struct{}{}
+	}
 }
 
 // SetSuffix4List :
@@ -125,6 +134,13 @@ func cat4json(
 
 	// ------------------------------ //
 
+	str2type := false
+	if _, ok := mNonstrPath[stk.Sprint("/")]; ok {
+		str2type = true
+	}
+
+	// ------------------------------ //
+
 	defer func() {
 		switch partType {
 		case sBrkt:
@@ -153,7 +169,7 @@ func cat4json(
 		}
 
 		switch lastChar() {
-		case '}', '"', 'l': // if this time element is Not the 1st one, append a Comma to buf.
+		case '}', '"', 'l', 'e', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': // if this time element is Not the 1st one, append a Comma to buf.
 			tracePrt(",")
 
 		case spacecolon: // step into a sub object(s)
@@ -225,7 +241,7 @@ func cat4json(
 
 		// if Not the first position for text content, append a Comma to existing buf.
 		switch lastChar() {
-		case '"', 'l': // here text is not the first sub, above are attributes subs
+		case '"', 'l', 'e', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': // here text is not the first sub, above are attributes subs
 			tracePrt(",")
 
 			if *plainList {
@@ -248,7 +264,11 @@ func cat4json(
 				}
 			}
 
-			tracePrt(fSf("\"%s\"", part))
+			if str2type {
+				tracePrt(part)
+			} else {
+				tracePrt(fSf("\"%s\"", part))
+			}
 		}
 
 	case eBrkt: // pop

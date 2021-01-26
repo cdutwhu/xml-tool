@@ -19,6 +19,7 @@ var (
 	sSplit        = strings.Split
 	sTrimRight    = strings.TrimRight
 	sTrimLeft     = strings.TrimLeft
+	sTrimSuffix   = strings.TrimSuffix
 	sTrim         = strings.Trim
 	sHasPrefix    = strings.HasPrefix
 	sHasSuffix    = strings.HasSuffix
