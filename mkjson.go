@@ -7,6 +7,7 @@ var (
 	attrPrefix   = "@"
 	ignoreAttr   = []string{}
 	suf4LsEleGrp = []string{}
+	sep          string
 	mNonstrPath  = make(map[string]struct{})
 )
 
@@ -32,10 +33,13 @@ func SetIgnrAttr(attrGrp ...string) {
 }
 
 // SetNonstrPath :
-func SetNonstrPath(nonstrPathGrp ...string) {
+func SetNonstrPath(pathSep rune, pathGrp ...string) {
 	mNonstrPath = make(map[string]struct{})
-	for _, nsPath := range nonstrPathGrp {
+	sep = string(pathSep)
+	for _, nsPath := range pathGrp {
+		nsPath = sTrimSuffix(nsPath, sep)
 		mNonstrPath[nsPath] = struct{}{}
+		mNonstrPath[nsPath+sep+contAttrName] = struct{}{}
 	}
 }
 
@@ -55,8 +59,10 @@ func SetSuffix4List(sufGrp ...string) {
 	suf4LsEleGrp = append(suf4LsEleGrp, sufGrp...)
 }
 
+// ---------------------------------------------------------------- //
+
 // if incoming-part is neither <start> nor <whole/> type, return both nil
-func attrInfo(swBrktPart string, ignore ...string) (attrs []string, mav map[string]string) {
+func attrInfo(swBrktPart string, ignore ...string) (tag string, attrs []string, mav map[string]string) {
 	mav = make(map[string]string)
 NEXT:
 	for _, attrstr := range rxAttrPart.FindAllString(swBrktPart, -1) {
@@ -77,10 +83,25 @@ NEXT:
 				break FINDAV
 			}
 		}
-		// value := sTrim(attrstr[iVal:], "\"'")
+		// value := sTrim(attrstr[iVal:], "\"'") // keep attribute's quotes
 		value := attrstr[iVal:]
 		mav[name] = value
 	}
+	// --------------------------------------- //
+	I := 0
+FOR:
+	for i, c := range swBrktPart {
+		switch c {
+		case ' ', '>', '/':
+			I = i
+			break FOR
+		}
+	}
+	if I == 0 {
+		panic("error@swBrktPart")
+	}
+	tag = swBrktPart[1:I]
+
 	return
 }
 
@@ -135,7 +156,7 @@ func cat4json(
 	// ------------------------------ //
 
 	str2type := false
-	if _, ok := mNonstrPath[stk.Sprint("/")]; ok {
+	if _, ok := mNonstrPath[stk.Sprint(sep)]; ok {
 		str2type = true
 	}
 
@@ -201,7 +222,7 @@ func cat4json(
 			tracePrt(fSf(`"%s":%s`, ele, space)) // write "***":
 		}
 
-		attrs, mav := attrInfo(part, ignoreAttr...)
+		tag, attrs, mav := attrInfo(part, ignoreAttr...)
 		for i, attr := range attrs {
 			if i == 0 {
 				if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl {
@@ -216,8 +237,16 @@ func cat4json(
 				}
 			}
 
+			if _, ok := mNonstrPath[sTrimLeft(stk.Sprint(sep)+sep+tag+sep+attr, sep)]; ok {
+				str2type = true
+			}
+
 			tracePrt(newLineBlank()+"\t\t", true) // supplement two '\t' to attribute indent
-			tracePrt(fSf("\"%s%s\":%s%s", attrPrefix, sTrimLeft(attr, " \t\r\n"), space, mav[attr]))
+			val := mav[attr]
+			if str2type {
+				val = sTrim(mav[attr], "\"")
+			}
+			tracePrt(fSf("\"%s%s\":%s%s", attrPrefix, sTrimLeft(attr, " \t\r\n"), space, val))
 
 			if i != len(attrs)-1 {
 				tracePrt(",") // if Not the last attr, append a Comma to existing buf.
@@ -244,12 +273,17 @@ func cat4json(
 		case '"', 'l', 'e', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': // here text is not the first sub, above are attributes subs
 			tracePrt(",")
 
+			val := part
+			if !str2type {
+				val = fSf("\"%s\"", part)
+			}
+
 			if *plainList {
-				tracePrt(newLineBlank(), true) // supplement one '\t' to text content indent
-				tracePrt(fSf("\"%s\"", part))
+				tracePrt(newLineBlank(), true)
+				tracePrt(val)
 			} else {
-				tracePrt(newLineBlank()+"\t", true)                         // supplement one '\t' to text content indent
-				tracePrt(fSf("\"%s\":%s\"%s\"", contAttrName, space, part)) // remove tail blank or line-feed
+				tracePrt(newLineBlank()+"\t", true)                    // supplement one '\t' to text content indent
+				tracePrt(fSf("\"%s\":%s%s", contAttrName, space, val)) // remove tail blank or line-feed
 			}
 
 		case spacecolon: // here text is the first & only sub
@@ -264,11 +298,11 @@ func cat4json(
 				}
 			}
 
-			if str2type {
-				tracePrt(part)
-			} else {
-				tracePrt(fSf("\"%s\"", part))
+			val := part
+			if !str2type {
+				val = fSf("\"%s\"", part)
 			}
+			tracePrt(val)
 		}
 
 	case eBrkt: // pop

@@ -39,10 +39,18 @@ func TestMkJSON(t *testing.T) {
 		`PeriodAttendances`,
 	)
 	SetNonstrPath(
+		'/',
+		"Activity/Title/Bool",
+		"Activity/Num",
+		"Activity/NumList/Num/Bool",
 		"Activity/Points",
+		"Activity/NumList/Num",
 		"Activity/ActivityWeight",
 		"Activity/MaxAttemptsAllowed",
 		"Activity/ActivityTime/Duration/value",
+		"MarkValueInfo/ValidLetterMarkList/ValidLetterMark/NumericEquivalent",
+		"NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/MultipleChoiceOptionCount",
+		// "NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/ItemDifficultyLogit5",
 	)
 
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {

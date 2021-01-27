@@ -45,7 +45,7 @@ func TagAttrVal(xml string) (tag string, attrs []string, mAttrVal map[string]str
 	return
 }
 
-// Lvl0 : xml should be '<name></name>'
+// Lvl0 : xml should be '<name>***</name>'
 func Lvl0(xml string) (string, string, string) {
 	sTag, name, eTag := "", "", ""
 	end1, end2 := 0, 0
