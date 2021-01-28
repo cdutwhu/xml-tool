@@ -11,32 +11,32 @@ import (
 func TestValStrIdx(t *testing.T) {
 	misc.TrackTime(time.Now())
 	bytes, _ := ioutil.ReadFile("./examples/StudentPersonal.xml")
-	xstr := string(bytes)
-	if !IsValid(xstr) {
+	xmlstr := string(bytes)
+	if !IsValid(xmlstr) {
 		panic("error")
 	}
-	fPln(Fmt(xstr))
+	fPln(Fmt(xmlstr))
 
-	// bLocGrp, types := brktLoc(xstr)
+	// bLocGrp, types := brktLoc(xmlstr)
 	// fPln(bLocGrp)
 	// // fPln(types)
 	// fPln(" -------------------- ")
-	// cLocGrp, types := conTxtLoc(xstr, bLocGrp, types)
+	// cLocGrp, types := conTxtLoc(xmlstr, bLocGrp, types)
 	// fPln(cLocGrp)
 
 	// for _, loc := range cLocGrp {
 	// 	s, e := loc[0], loc[1]
-	// 	fPln(xstr[s:e])
+	// 	fPln(xmlstr[s:e])
 	// }
 
 	// merged := locMerge(bLocGrp, cLocGrp)
 	// fPln(merged)
 
 	// for _, loc := range merged {
-	// 	fPln(xstr[loc[0]:loc[1]])
+	// 	fPln(xmlstr[loc[0]:loc[1]])
 	// }
 
-	// aLocGrp, types := attrValLoc(xstr, types)
+	// aLocGrp, types := attrValLoc(xmlstr, types)
 	// fPln(aLocGrp)
 	// fPln(types)
 

@@ -54,11 +54,11 @@ const (
 	aQuot = 5 // attribute double/single quotes
 )
 
-func attrValLoc(xstr string, partType map[int]int8) ([][2]int, map[int]int8) {
+func attrValLoc(xmlstr string, partType map[int]int8) ([][2]int, map[int]int8) {
 	locGrp := [][2]int{}
 	loc := [2]int{}
-	for i := 0; i < len(xstr); i++ {
-		c := xstr[i]
+	for i := 0; i < len(xmlstr); i++ {
+		c := xmlstr[i]
 		if c == '"' || c == '\'' {
 			if loc[0] == 0 {
 				loc[0] = i
@@ -76,15 +76,15 @@ func attrValLoc(xstr string, partType map[int]int8) ([][2]int, map[int]int8) {
 	return locGrp, partType
 }
 
-func brktLoc(xstr string) (locGrp [][2]int, partType map[int]int8) {
+func brktLoc(xmlstr string) (locGrp [][2]int, partType map[int]int8) {
 	partType = make(map[int]int8)
 	loc := [2]int{}
-	for i := 0; i < len(xstr); i++ {
-		switch c := xstr[i]; c {
+	for i := 0; i < len(xmlstr); i++ {
+		switch c := xmlstr[i]; c {
 		case '<':
 			loc[0] = i
 			// type
-			if xstr[i+1] == '/' {
+			if xmlstr[i+1] == '/' {
 				partType[i] = eBrkt
 			} else {
 				partType[i] = sBrkt
@@ -93,7 +93,7 @@ func brktLoc(xstr string) (locGrp [][2]int, partType map[int]int8) {
 			loc[1] = i + 1
 			locGrp = append(locGrp, loc)
 			// type
-			if xstr[i-1] == '/' {
+			if xmlstr[i-1] == '/' {
 				partType[loc[0]] = wBrkt
 			}
 		}
@@ -101,19 +101,19 @@ func brktLoc(xstr string) (locGrp [][2]int, partType map[int]int8) {
 	return
 }
 
-func conTxtLoc(xstr string, brktLocGrp [][2]int, partType map[int]int8) ([][2]int, map[int]int8) {
+func conTxtLoc(xmlstr string, brktLocGrp [][2]int, partType map[int]int8) ([][2]int, map[int]int8) {
 	locGrp := [][2]int{}
 	for iBrkt, loc := range brktLocGrp {
 		s, e := loc[0], loc[1]
 		t := partType[s]
 		if t == eBrkt { //
-			eTagTxt := xstr[s+2 : e-1]
+			eTagTxt := xmlstr[s+2 : e-1]
 			pBrkt := brktLocGrp[iBrkt-1]
 			ps, pe := pBrkt[0], pBrkt[1]
-			pTagTxt := xstr[ps+1 : pe-1]
+			pTagTxt := xmlstr[ps+1 : pe-1]
 			if pTagTxt == eTagTxt || sHasPrefix(pTagTxt, eTagTxt+" ") {
 				// exclude empty text content, let this pos be end tag pos
-				if pe != s { // && sTrim(xstr[pe:s], " \t\r\n") != "" {
+				if pe != s { // && sTrim(xmlstr[pe:s], " \t\r\n") != "" {
 					locGrp = append(locGrp, [2]int{pe, s})
 					// type
 					partType[pe] = cText
@@ -173,21 +173,21 @@ func cat(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk
 }
 
 // Fmt :
-func Fmt(xstr string) string {
+func Fmt(xmlstr string) string {
 	// misc.TrackTime(time.Now())
 
 	stk := stack{}
 	mLvlEle := make(map[int8]string)
 
-	bLocGrp, types := brktLoc(xstr)
-	cLocGrp, types := conTxtLoc(xstr, bLocGrp, types)
+	bLocGrp, types := brktLoc(xmlstr)
+	cLocGrp, types := conTxtLoc(xmlstr, bLocGrp, types)
 	bcLocGrp := locMerge(bLocGrp, cLocGrp)
 
 	sb := &sBuilder{}
-	sb.Grow(len(xstr) * 2)
+	sb.Grow(len(xmlstr) * 2)
 	for _, loc := range bcLocGrp {
 		s, e := loc[0], loc[1]
-		sb = cat(sb, xstr[s:e], types[s], &mLvlEle, &stk)
+		sb = cat(sb, xmlstr[s:e], types[s], &mLvlEle, &stk)
 	}
 
 	return sb.String()

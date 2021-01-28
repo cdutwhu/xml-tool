@@ -7,8 +7,10 @@ var (
 	attrPrefix   = "@"
 	ignoreAttr   = []string{}
 	suf4LsEleGrp = []string{}
-	sep          string
+	nspSep       string
 	mNonstrPath  = make(map[string]struct{})
+	lspSep       string
+	mListPath    = make(map[string]struct{})
 )
 
 // SetSlim :
@@ -33,18 +35,28 @@ func SetIgnrAttr(attrGrp ...string) {
 }
 
 // SetNonStrPath :
-func SetNonStrPath(pathSep rune, pathGrp ...string) {
+func SetNonStrPath(sep rune, pathGrp ...string) {
 	mNonstrPath = make(map[string]struct{})
-	sep = string(pathSep)
+	nspSep = string(sep)
 	for _, nsPath := range pathGrp {
-		nsPath = sTrimSuffix(nsPath, sep)
+		nsPath = sTrimSuffix(nsPath, nspSep)
 		mNonstrPath[nsPath] = struct{}{}
-		mNonstrPath[nsPath+sep+contAttrName] = struct{}{}
+		mNonstrPath[nsPath+nspSep+contAttrName] = struct{}{}
 	}
 }
 
-// SetSuffix4List :
-func SetSuffix4List(sufGrp ...string) {
+// SetListPath :
+func SetListPath(sep rune, pathGrp ...string) {
+	mListPath = make(map[string]struct{})
+	lspSep = string(sep)
+	for _, lsPath := range pathGrp {
+		lsPath = sTrimSuffix(lsPath, lspSep)
+		mListPath[lsPath] = struct{}{}
+	}
+}
+
+// SetListPathSuf :
+func SetListPathSuf(sufGrp ...string) {
 	if !setSlim {
 		panic("MUST explicitly 'SetSlim' before setting List")
 	}
@@ -175,7 +187,7 @@ func cat4json(
 	// ------------------------------ //
 
 	str2type := false
-	if _, ok := mNonstrPath[stk.Sprint(sep)]; ok {
+	if _, ok := mNonstrPath[stk.Sprint(nspSep)]; ok {
 		str2type = true
 	}
 
@@ -214,8 +226,13 @@ func cat4json(
 
 		case spacecolon: // step into a sub object(s)
 
-			// list-elements bunch checking ...
-			if buf := sb.String(); sHasAnySuffix(buf, suf4LsEleGrp...) {
+			// 1) list-elements bunch checking by suffix...
+			// if buf := sb.String(); sHasAnySuffix(buf, suf4LsEleGrp...) {
+			// 	stk4lslvl.Push(lvl)
+			// }
+
+			// 2) list-elements bunch checking ...
+			if _, ok := mListPath[stk.Sprint(lspSep)]; ok {
 				stk4lslvl.Push(lvl)
 			}
 
@@ -256,7 +273,7 @@ func cat4json(
 				}
 			}
 
-			if _, ok := mNonstrPath[sTrimLeft(stk.Sprint(sep)+sep+tag+sep+attr, sep)]; ok {
+			if _, ok := mNonstrPath[sTrimLeft(stk.Sprint(nspSep)+nspSep+tag+nspSep+attr, nspSep)]; ok {
 				str2type = true
 			}
 
@@ -362,23 +379,23 @@ func cat4json(
 }
 
 // MkJSON :
-func MkJSON(xstr string) string {
+func MkJSON(xmlstr string) string {
 
 	stk, stk4lslvl := stack{}, stack{}
 	mLvlEle := make(map[int]string)
 	mLslvlMark := make(map[int]struct{})
 
-	bLocGrp, types := brktLoc(xstr)
-	cLocGrp, types := conTxtLoc(xstr, bLocGrp, types)
+	bLocGrp, types := brktLoc(xmlstr)
+	cLocGrp, types := conTxtLoc(xmlstr, bLocGrp, types)
 	bcLocGrp := locMerge(bLocGrp, cLocGrp) // bracket & content
 
 	singleCont, plainList := false, false
 	sb := &sBuilder{}
-	sb.Grow(len(xstr) * 2)
+	sb.Grow(len(xmlstr) * 2)
 	sb.WriteString("{")
 	for _, loc := range bcLocGrp {
 		s, e := loc[0], loc[1]
-		sb = cat4json(sb, xstr[s:e], types[s], &mLvlEle, &stk, &singleCont, &plainList, &stk4lslvl, &mLslvlMark)
+		sb = cat4json(sb, xmlstr[s:e], types[s], &mLvlEle, &stk, &singleCont, &plainList, &stk4lslvl, &mLslvlMark)
 	}
 	if !slim {
 		sb.WriteString("\n")
