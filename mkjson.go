@@ -32,8 +32,8 @@ func SetIgnrAttr(attrGrp ...string) {
 	ignoreAttr = append(ignoreAttr, attrGrp...)
 }
 
-// SetNonstrPath :
-func SetNonstrPath(pathSep rune, pathGrp ...string) {
+// SetNonStrPath :
+func SetNonStrPath(pathSep rune, pathGrp ...string) {
 	mNonstrPath = make(map[string]struct{})
 	sep = string(pathSep)
 	for _, nsPath := range pathGrp {
@@ -104,6 +104,25 @@ FOR:
 
 	return
 }
+
+// .123 => 0.123
+func legalizeFloat(float string) string {
+	if float[0] != '.' {
+		return float
+	}
+	for _, v := range float[1:] {
+		if v < '0' || v > '9' {
+			return float
+		}
+	}
+	return "0" + float
+}
+
+func legalize(s string) string {
+	return legalizeFloat(s)
+}
+
+// ---------------------------------------------------------------- //
 
 func cat4json(
 	sb *sBuilder,
@@ -245,6 +264,7 @@ func cat4json(
 			val := mav[attr]
 			if str2type {
 				val = sTrim(mav[attr], "\"")
+				val = legalize(val)
 			}
 			tracePrt(fSf("\"%s%s\":%s%s", attrPrefix, sTrimLeft(attr, " \t\r\n"), space, val))
 
@@ -276,6 +296,8 @@ func cat4json(
 			val := part
 			if !str2type {
 				val = fSf("\"%s\"", part)
+			} else {
+				val = legalize(val)
 			}
 
 			if *plainList {
@@ -301,6 +323,8 @@ func cat4json(
 			val := part
 			if !str2type {
 				val = fSf("\"%s\"", part)
+			} else {
+				val = legalize(val)
 			}
 			tracePrt(val)
 		}

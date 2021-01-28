@@ -38,13 +38,14 @@ func TestMkJSON(t *testing.T) {
 		`AttendanceTimes`,
 		`PeriodAttendances`,
 	)
-	SetNonstrPath(
+	SetNonStrPath(
 		'/',
 		"Activity/Title/Bool",
 		"Activity/Num",
 		"Activity/NumList/Num/Bool",
 		"Activity/Points",
 		"Activity/NumList/Num",
+		"Activity/Num1List/Num",
 		"Activity/ActivityWeight",
 		"Activity/MaxAttemptsAllowed",
 		"Activity/ActivityTime/Duration/value",

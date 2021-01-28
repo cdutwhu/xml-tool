@@ -1,11 +1,18 @@
-<Activity RefId="C27E1FCF-C163-485F-BEF0-F36F18A0493A" Num="100" Bool="true">
+<Activity RefId="C27E1FCF-C163-485F-BEF0-F36F18A0493A" Num=".01" Bool="true">
     <NumList>
-        <Num Bool="false">1</Num>
-        <Num Bool="false">2</Num>
+        <Num Bool="false">.1</Num>
+        <Num Bool="false">.02</Num>
         <Num Bool="false">3</Num>
         <Num Bool="false">4</Num>
         <Num Bool="false">5</Num>
     </NumList>
+    <Num1List>
+        <Num>.1</Num>
+        <Num>.02</Num>
+        <Num>3</Num>
+        <Num>4</Num>
+        <Num>5</Num>
+    </Num1List>
     <Title Bool="false">Shakespeare Essay - Much Ado About Nothing
     </Title>
     <Preamble>This is a very funny comedy - students should have passing familiarity with Shakespeare
