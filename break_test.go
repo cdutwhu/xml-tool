@@ -47,8 +47,8 @@ func TestBreakCont(t *testing.T) {
 	fPln(" ---------- ")
 	fPln(out)
 	fPln(" ---------- ")
-	fPln(in)
-	fPln(" ---------- ")
+	// fPln(in)
+	// fPln(" ---------- ")
 	names, subContents := BreakCont(in)
 	mFNIdx := make(map[string]int)
 	for i, name := range names {
@@ -71,4 +71,5 @@ func TestBreakCont(t *testing.T) {
 		io.MustWriteFile("./examples348/"+filename, []byte(subFmt))
 		mFNIdx[name]++
 	}
+	fPln("Subs Count:", len(names))
 }

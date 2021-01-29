@@ -95,8 +95,12 @@ NEXT:
 				break FINDAV
 			}
 		}
-		// value := sTrim(attrstr[iVal:], "\"'") // keep attribute's quotes
+		// value := sTrim(attrstr[iVal:], "\"'") // keep attribute's quotes, so comment this line out
 		value := attrstr[iVal:]
+		// if 'single quotes', to "double quotes"
+		if sHasPrefix(value, "'") && sHasSuffix(value, "'") {
+			value = "\"" + value[1:len(value)-1] + "\""
+		}
 		mav[name] = value
 	}
 	// --------------------------------------- //
@@ -304,6 +308,7 @@ func cat4json(
 		part = sTrim(part, " \t\n\r")
 		part = sReplaceAll(part, "\"", "\\\"")
 		part = sReplaceAll(part, "\n", "\\n")
+		part = sReplaceAll(part, "\t", "\\t")
 
 		// if Not the first position for text content, append a Comma to existing buf.
 		switch lastChar() {

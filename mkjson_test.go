@@ -14,7 +14,7 @@ import (
 
 func TestMkJSON(t *testing.T) {
 	defer misc.TrackTime(time.Now())
-	dir := "./examples/"
+	dir := "./examples348/"
 
 	SetSlim(false)
 	SetAttrPrefix("")
@@ -151,7 +151,7 @@ func TestMkJSON(t *testing.T) {
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
 
-			// if xmlfile != "Activity_0.xml" {
+			// if xmlfile != "StudentContactPersonal_0.xml" {
 			// 	return nil
 			// }
 
