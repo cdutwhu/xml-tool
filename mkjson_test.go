@@ -155,7 +155,7 @@ func TestMkJSON(t *testing.T) {
 			// 	return nil
 			// }
 
-			if xmlfile == "n2sif.xml" {
+			if xmlfile == "n2sif.xml" || xmlfile == "siftest.xml" {
 				return nil
 			}
 

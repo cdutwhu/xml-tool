@@ -3,8 +3,8 @@ package xmltool
 import "encoding/xml"
 
 // IsValid :
-func IsValid(str string) bool {
-	return xml.Unmarshal([]byte(str), new(interface{})) == nil
+func IsValid(xmlstr string) bool {
+	return xml.Unmarshal([]byte(xmlstr), new(interface{})) == nil
 }
 
 // Root :

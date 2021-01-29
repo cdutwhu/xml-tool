@@ -12,17 +12,17 @@ func StreamEle(reader *bufio.Reader, elements ...string) chan string {
 
 	go func() {
 
-		restr := `<[\w\d-_]+[ >]` // if no needed elements provided, get all top elements
+		reStr := `<[\w\d-_]+[ >]` // if no needed elements provided, get all top elements
 		// else, select we wanted
 		if len(elements) > 0 {
-			restr = "<("
+			reStr = "<("
 			for _, ele := range elements {
-				restr += fSf("(%s)|", ele)
+				reStr += fSf("(%s)|", ele)
 			}
-			restr = sTrimRight(restr, "|") + ")[> ]"
+			reStr = sTrimRight(reStr, "|") + ")[> ]"
 		}
 
-		rOpenTag := regexp.MustCompile(restr)
+		rOpenTag := regexp.MustCompile(reStr)
 		closeTag := ""
 		jump4close := false
 
