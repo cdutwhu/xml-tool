@@ -44,7 +44,9 @@ type (
 )
 
 var (
-	rxTag      = rxMustCompile(`<\w+[\s/>]`)
-	rxHead     = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
-	rxAttrPart = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
+	rxTag        = rxMustCompile(`<\w+[\s/>]`)
+	rxHead       = rxMustCompile(`<\w+(\s+[\w:]+\s*=\s*"[^"]*"\s*)*\s*/?>`)
+	rxAttrPart   = rxMustCompile(`\s+[\w:]+\s*=\s*(("[^"]*")|('[^']*'))`)
+	rxLF1more    = rxMustCompile(`\n+`)
+	rxSpace2more = rxMustCompile(` {2,}`)
 )

@@ -160,6 +160,11 @@ func cat(sb *sBuilder, part string, partType int8, mLvlEle *map[int8]string, stk
 		if partType == sBrkt {
 			stk.Push(ele)
 		}
+		// remove all LF
+		part = rxLF1more.ReplaceAllString(part, "")
+		// remove redundant spaces
+		part = rxSpace2more.ReplaceAllString(part, " ")
+
 	case cText: // push
 	case eBrkt: // pop
 		ele = part[2 : len(part)-1]
