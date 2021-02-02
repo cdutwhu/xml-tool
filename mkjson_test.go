@@ -15,6 +15,10 @@ import (
 func TestMkJSON(t *testing.T) {
 	defer misc.TrackTime(time.Now())
 	dir := "./examples348/"
+	if !dirExists(dir) {
+		fPln(dir, " does not exist")
+		return
+	}
 
 	SetSlim(false)
 	SetAttrPrefix("")
@@ -25,7 +29,7 @@ func TestMkJSON(t *testing.T) {
 		"xmlns:xsi",
 		"xmlns",
 	)
-	// SetListPathSuf(
+	// SetListPathSuffix(
 	// 	`List`,
 	// 	`MedicalAlertMessages`,
 	// 	`OtherNames`,
@@ -38,115 +42,17 @@ func TestMkJSON(t *testing.T) {
 	// 	`AttendanceTimes`,
 	// 	`PeriodAttendances`,
 	// )
-	SetListPath(
-		'/',
-		"NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/NAPWritingRubricList",
-		"NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/NAPWritingRubricList/NAPWritingRubric/ScoreList/Score/ScoreDescriptionList",
-		"TimeTable/TimeTableDayList",
-		"TimeTable/TimeTableDayList/TimeTableDay/TimeTablePeriodList",
-		"TimeTableCell/TeacherList",
-		"TeachingGroup/TeachingGroupPeriodList",
-		"TeachingGroup/TeacherList",
-		"TeachingGroup/StudentList",
-		"SystemRole/SystemContextList/SystemContext/RoleList/Role/RoleScopeList",
-		"SystemRole/SystemContextList",
-		"StudentSchoolEnrollment/PublishingPermissionList",
-		"StudentPersonal/LocalCodeList",
-		"StudentPersonal/PersonInfo/PhoneNumberList",
-		"StudentPersonal/PersonInfo/EmailList",
-		"StudentPersonal/PersonInfo/AddressList",
-		"StudentPersonal/PersonInfo/Demographics/ReligiousEventList",
-		"StudentPersonal/PersonInfo/Demographics/CountriesOfResidency",
-		"StudentPersonal/PersonInfo/Demographics/CountriesOfCitizenship",
-		"StudentPersonal/PersonInfo/OtherNames",
-		"StudentPersonal/ElectronicIdList",
-		"StudentPersonal/MedicalAlertMessages",
-		"StudentDailyAttendance/AttendanceCode/OtherCodeList",
-		"StudentContactRelationship/HouseholdList",
-		"StudentContactPersonal/PersonInfo/EmailList",
-		"StudentContactPersonal/PersonInfo/PhoneNumberList",
-		"StudentContactPersonal/PersonInfo/AddressList",
-		"StudentContactPersonal/PersonInfo/Demographics/ReligiousEventList",
-		"StudentContactPersonal/PersonInfo/Demographics/CountriesOfResidency",
-		"StudentContactPersonal/PersonInfo/Demographics/CountriesOfCitizenship",
-		"StudentContactPersonal/PersonInfo/OtherNames",
-		"StudentContactPersonal/OtherIdList",
-		"StudentAttendanceTimeList/PeriodAttendances/PeriodAttendance/TeacherList",
-		"StudentAttendanceTimeList/PeriodAttendances",
-		"StudentAttendanceTimeList/AttendanceTimes/AttendanceTime/AttendanceCode/OtherCodeList",
-		"StudentAttendanceTimeList/AttendanceTimes",
-		"StudentAttendanceCollection/StudentAttendanceCollectionReportingList/StudentAttendanceCollectionReporting/StatsCohortYearLevelList",
-		"StudentAttendanceCollection/StudentAttendanceCollectionReportingList/StudentAttendanceCollectionReporting/StatsCohortYearLevelList/StatsCohortYearLevel/StatsCohortList",
-		"StudentActivityInfo/YearLevels",
-		"Activity/NumList",
-		"Activity/Num1List",
-		"Activity/SoftwareRequirementList",
-		"AddressCollection/AddressCollectionReportingList/AddressCollectionReporting/AGContextualQuestionList",
-		"CalendarSummary/YearLevels",
-		"CensusCollection/CensusReportingList/CensusReporting/CensusStaffList",
-		"CensusCollection/CensusReportingList/CensusReporting/CensusStudentList",
-		"CollectionRound/AGRoundList",
-		"CollectionStatus/AGReportingObjectResponseList",
-		"StudentPersonal/OtherIdList",
-		"NAPStudentResponseSet/TestletList",
-		"NAPStudentResponseSet/TestletList/Testlet/ItemResponseList",
-		"NAPStudentResponseSet/DomainScore/PlausibleScaledValueList",
-		"NAPStudentResponseSet/TestletList/Testlet/ItemResponseList/ItemResponse/SubscoreList",
-		"FinancialQuestionnaireCollection/FQReportingList",
-		"FinancialQuestionnaireCollection/FQReportingList/FQReporting/FQContextualQuestionList",
-		"FinancialQuestionnaireCollection/FQReportingList/FQReporting/FQItemList",
-		"Identity/IdentityAssertions",
-		"LearningResource/YearLevels",
-		"LearningResource/LearningStandards",
-		"LearningStandardDocument/YearLevels",
-		"LearningStandardItem/YearLevels",
-		"LearningStandardItem/StandardIdentifier/YearLevels",
-		"LearningStandardItem/RelatedLearningStandardItems",
-		"LibraryPatronStatus/ElectronicIdList",
-		"LibraryPatronStatus/TransactionList",
-		"LibraryPatronStatus/MessageList",
-		"MarkValueInfo/ValidLetterMarkList",
-		"NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/ContentDescriptionList",
-		"NAPCodeFrame/TestletList/Testlet/TestItemList",
-		"NAPTestItem/TestItemContent/ContentDescriptionList",
-		"NAPTestlet/TestItemList",
-		"PersonPicture/PublishingPermissionList",
-		"ResourceUsage/ResourceReportColumnList",
-		"ResourceUsage/ResourceReportLineList",
-		"ScheduledActivity/TeacherList",
-		"ScheduledActivity/TeachingGroupList",
-		"SchoolInfo/SchoolFocusList",
-		"SchoolInfo/YearLevels",
-		"SchoolInfo/SchoolGroupList",
-		"SchoolInfo/SchoolContactList/SchoolContact/ContactInfo/EmailList",
-		"SchoolPrograms/SchoolProgramList",
-		"StaffAssignment/StaffSubjectList",
-		"StaffAssignment/YearLevels",
-		"StaffPersonal/PersonInfo/OtherNames",
-		"StaffPersonal/PersonInfo/Demographics/CountriesOfCitizenship",
-		"StaffPersonal/PersonInfo/Demographics/CountriesOfResidency",
-		"StaffPersonal/PersonInfo/Demographics/ReligiousEventList",
-		"StaffPersonal/PersonInfo/AddressList",
-		"StaffPersonal/PersonInfo/PhoneNumberList",
-		"StaffPersonal/PersonInfo/EmailList",
-		"StaffPersonal/MostRecent/NAPLANClassList",
-	)
-	SetNonStrPath(
-		'/',
-		"Activity/Title/Bool",
-		"Activity/Num",
-		"Activity/NumList/Num/Bool",
-		"Activity/Points",
-		"Activity/NumList/Num",
-		"Activity/Num1List/Num",
-		"Activity/ActivityWeight",
-		"Activity/MaxAttemptsAllowed",
-		"Activity/ActivityTime/Duration/value",
-		"MarkValueInfo/ValidLetterMarkList/ValidLetterMark/NumericEquivalent",
-		"NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/MultipleChoiceOptionCount",
-		"NAPCodeFrame/TestletList/Testlet/TestItemList/TestItem/TestItemContent/ItemDifficultyLogit5",
-		"NAPTestItem/TestItemContent/ItemDifficultyLogit5",
-	)
+
+	SetPathByFile("LIST", "./mkjson/LIST.txt", "listSIF347", true, '/')
+	SetPathByFile("LIST", "./mkjson/LIST1.txt", "listSIF347", true, '/')
+	if err := EnableListPath("listSIF347"); err != nil {
+		panic(err)
+	}
+
+	SetPathByFile("TYPE", "./mkjson/TYPE.txt", "typeSIF347", true, '/')
+	if err := EnableNonStrPath("typeSIF347"); err != nil {
+		panic(err)
+	}
 
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
@@ -159,7 +65,7 @@ func TestMkJSON(t *testing.T) {
 				return nil
 			}
 
-			fPln("--->", xmlfile)
+			fPln("processing...", xmlfile)
 
 			bytes, _ := ioutil.ReadFile(dir + xmlfile)
 			jsonstr := MkJSON(string(bytes))
@@ -187,7 +93,7 @@ func BenchmarkMkJSON(b *testing.B) {
 		"xmlns:xsi",
 		"xmlns",
 	)
-	SetListPathSuf(
+	SetListPathSuffix(
 		`List`,
 		`MedicalAlertMessages`,
 		`OtherNames`,
@@ -205,7 +111,7 @@ func BenchmarkMkJSON(b *testing.B) {
 		dir := "./examples/"
 		filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 			if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {
-				// fPln("--->", xmlfile)
+				// fPln("processing...", xmlfile)
 				if xmlfile == "n2sif.xml" {
 					return nil
 				}

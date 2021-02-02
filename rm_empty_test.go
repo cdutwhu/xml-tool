@@ -33,7 +33,7 @@ func TestRmEmptyEle(T *testing.T) {
 	fPln("-----------------------")
 
 	SetSlim(false)
-	SetListPathSuf("List")
+	SetListPathSuffix("List")
 	jsonstr := MkJSON(remainder)
 	if !jt.IsValid(jsonstr) {
 		panic("invalid json str")
@@ -49,7 +49,7 @@ func BenchmarkRmEmptyEle(b *testing.B) {
 		}
 		xml := string(bytes)
 		SetSlim(false)
-		SetListPathSuf("List")
+		SetListPathSuffix("List")
 
 		remainder := RmEmptyEle(xml, 3, true)
 		MkJSON(remainder)

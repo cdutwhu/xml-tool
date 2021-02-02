@@ -1,5 +1,10 @@
 package xmltool
 
+import (
+	"bufio"
+	"os"
+)
+
 var (
 	setSlim      = false
 	slim         = false
@@ -8,9 +13,11 @@ var (
 	ignoreAttr   = []string{}
 	suf4LsEleGrp = []string{}
 	nspSep       string
-	mNonstrPath  = make(map[string]struct{})
+	mNonStrPath  = make(map[string]struct{})
+	mRegMapNSP   = make(map[string]map[string]struct{})
 	lspSep       string
 	mListPath    = make(map[string]struct{})
+	mRegMapLP    = make(map[string]map[string]struct{})
 )
 
 // SetSlim :
@@ -34,29 +41,82 @@ func SetIgnrAttr(attrGrp ...string) {
 	ignoreAttr = append(ignoreAttr, attrGrp...)
 }
 
+// ---------------------------------------------------------------- //
+
 // SetNonStrPath :
-func SetNonStrPath(sep rune, pathGrp ...string) {
-	mNonstrPath = make(map[string]struct{})
+func SetNonStrPath(id string, add bool, sep rune, pathGrp ...string) {
+	if mRegMapNSP[id] == nil || !add {
+		mRegMapNSP[id] = make(map[string]struct{})
+	}
 	nspSep = string(sep)
 	for _, nsPath := range pathGrp {
 		nsPath = sTrimSuffix(nsPath, nspSep)
-		mNonstrPath[nsPath] = struct{}{}
-		mNonstrPath[nsPath+nspSep+contAttrName] = struct{}{}
+		mRegMapNSP[id][nsPath] = struct{}{}
+		mRegMapNSP[id][nsPath+nspSep+contAttrName] = struct{}{}
 	}
 }
 
+// EnableNonStrPath :
+func EnableNonStrPath(id string) error {
+	if m, ok := mRegMapNSP[id]; ok {
+		mNonStrPath = m
+		return nil
+	}
+	return fEf("[%s] is not set for NonStrPath", id)
+}
+
+// ----------------------------- //
+
 // SetListPath :
-func SetListPath(sep rune, pathGrp ...string) {
-	mListPath = make(map[string]struct{})
+func SetListPath(id string, add bool, sep rune, pathGrp ...string) {
+	if mRegMapLP[id] == nil || !add {
+		mRegMapLP[id] = make(map[string]struct{})
+	}
 	lspSep = string(sep)
 	for _, lsPath := range pathGrp {
 		lsPath = sTrimSuffix(lsPath, lspSep)
-		mListPath[lsPath] = struct{}{}
+		mRegMapLP[id][lsPath] = struct{}{}
 	}
 }
 
-// SetListPathSuf :
-func SetListPathSuf(sufGrp ...string) {
+// EnableListPath :
+func EnableListPath(id string) error {
+	if m, ok := mRegMapLP[id]; ok {
+		mListPath = m
+		return nil
+	}
+	return fEf("[%s] is not set for ListPath", id)
+}
+
+// SetPathByFile :
+func SetPathByFile(pathtype, filepath, id string, add bool, sep rune) error {
+	file, err := os.Open(filepath)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+	paths := []string{}
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		paths = append(paths, line)
+	}
+	if err := scanner.Err(); err != nil {
+		return err
+	}
+	switch pathtype {
+	case "LIST", "List", "list":
+		SetListPath(id, add, sep, paths...)
+	case "Type", "TYPE", "Non-Str", "NON-STR", "NonStr", "NONSTR", "Bool", "BOOL", "Num", "NUM":
+		SetNonStrPath(id, add, sep, paths...)
+	default:
+		panic(fSf("[%s] is not supported @SetPathByFile", pathtype))
+	}
+	return nil
+}
+
+// SetListPathSuffix :
+func SetListPathSuffix(sufGrp ...string) {
 	if !setSlim {
 		panic("MUST explicitly 'SetSlim' before setting List")
 	}
@@ -191,7 +251,7 @@ func cat4json(
 	// ------------------------------ //
 
 	str2type := false
-	if _, ok := mNonstrPath[stk.Sprint(nspSep)]; ok {
+	if _, ok := mNonStrPath[stk.Sprint(nspSep)]; ok {
 		str2type = true
 	}
 
@@ -277,7 +337,7 @@ func cat4json(
 				}
 			}
 
-			if _, ok := mNonstrPath[sTrimLeft(stk.Sprint(nspSep)+nspSep+tag+nspSep+attr, nspSep)]; ok {
+			if _, ok := mNonStrPath[sTrimLeft(stk.Sprint(nspSep)+nspSep+tag+nspSep+attr, nspSep)]; ok {
 				str2type = true
 			}
 

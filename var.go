@@ -2,6 +2,7 @@ package xmltool
 
 import (
 	"fmt"
+	"os"
 	"regexp"
 	"strings"
 
@@ -35,6 +36,22 @@ var (
 			}
 		}
 		return false
+	}
+
+	fileExists = func(filename string) bool {
+		info, err := os.Stat(filename)
+		if os.IsNotExist(err) {
+			return false
+		}
+		return !info.IsDir()
+	}
+
+	dirExists = func(dirname string) bool {
+		info, err := os.Stat(dirname)
+		if os.IsNotExist(err) {
+			return false
+		}
+		return info.IsDir()
 	}
 )
 

@@ -39,7 +39,13 @@ func TestBreakCont(t *testing.T) {
 	// </LearningResources>
 	// </Activity>`
 
-	xmlbytes, _ := ioutil.ReadFile("./examples/siftest.xml")
+	testfile := "./examples/siftest.xml"
+	if !fileExists(testfile) {
+		fPln(testfile, "does not exist")
+		return
+	}
+
+	xmlbytes, _ := ioutil.ReadFile(testfile)
 	xml := string(xmlbytes)
 
 	name, out, in := Lvl0(xml)
