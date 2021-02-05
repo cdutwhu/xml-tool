@@ -284,19 +284,16 @@ func cat4json(
 			}
 		}
 
-		switch lastChar() {
-		case '}', '"', 'l', 'e', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': // if this time element is Not the 1st one, append a Comma to buf.
+		eChar := lastChar()
+		switch {
+		case eChar == '}' || eChar == '"' || eChar == 'l' || eChar == 'e' || (eChar >= '0' && eChar <= '9'): // if this time element is Not the 1st one, append a Comma to buf.
 			tracePrt(",")
 
-		case spacecolon: // step into a sub object(s)
+		case eChar == spacecolon: // step into a sub object(s)
 
-			// 1) list-elements bunch checking by suffix...
-			// if buf := sb.String(); sHasAnySuffix(buf, suf4LsEleGrp...) {
-			// 	stk4lslvl.Push(lvl)
-			// }
-
-			// 2) list-elements bunch checking ...
-			if _, ok := mListPath[stk.Sprint(lspSep)]; ok {
+			if _, ok := mListPath[stk.Sprint(lspSep)]; ok { // 1) list-elements bunch checking ...
+				stk4lslvl.Push(lvl)
+			} else if sHasAnySuffix(sb.String(), suf4LsEleGrp...) { // 2) list-elements bunch checking by suffix ...
 				stk4lslvl.Push(lvl)
 			}
 
@@ -365,14 +362,12 @@ func cat4json(
 		}
 
 	case cText: // push
-		part = sTrim(part, " \t\n\r")
-		part = sReplaceAll(part, "\"", "\\\"")
-		part = sReplaceAll(part, "\n", "\\n")
-		part = sReplaceAll(part, "\t", "\\t")
+		part = xmlTxtEscCharProc(part)
 
 		// if Not the first position for text content, append a Comma to existing buf.
-		switch lastChar() {
-		case '"', 'l', 'e', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9': // here text is not the first sub, above are attributes subs
+		eChar := lastChar()
+		switch {
+		case eChar == '"' || eChar == 'l' || eChar == 'e' || (eChar >= '0' && eChar <= '9'): // here text is not the first sub, above are attributes subs
 			tracePrt(",")
 
 			val := part
@@ -390,7 +385,7 @@ func cat4json(
 				tracePrt(fSf("\"%s\":%s%s", contAttrName, space, val)) // remove tail blank or line-feed
 			}
 
-		case spacecolon: // here text is the first & only sub
+		case eChar == spacecolon: // here text is the first & only sub
 			*singleCont = true
 
 			if lslvl, ok := stk4lslvl.Peek(); ok && lslvl == lvl-1 {
@@ -468,4 +463,28 @@ func MkJSON(xmlstr string) string {
 	sb.WriteString("}")
 
 	return sb.String()
+}
+
+// --------------------------------- //
+
+var sb4TxtEscChar = sBuilder{}
+
+func xmlTxtEscCharProc(txt string) string {
+	sb4TxtEscChar.Reset()
+	for _, c := range txt {
+		switch c {
+		case '"':
+			sb4TxtEscChar.WriteString("\\\"")
+			continue
+		case '\n':
+			sb4TxtEscChar.WriteString("\\n")
+			continue
+		case '\t':
+			sb4TxtEscChar.WriteString("\\t")
+			continue
+		default:
+			sb4TxtEscChar.WriteRune(c)
+		}
+	}
+	return sTrim(sb4TxtEscChar.String(), " \t\n\r")
 }

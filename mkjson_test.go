@@ -12,6 +12,13 @@ import (
 	jt "github.com/cdutwhu/json-tool"
 )
 
+func TestXmlTxtEscCharProc(t *testing.T) {
+	part := ` he"llo
+	world  `
+	part = xmlTxtEscCharProc(part)
+	fPln(part)
+}
+
 func TestMkJSON(t *testing.T) {
 	defer misc.TrackTime(time.Now())
 	dir := "./examples348/"
@@ -43,13 +50,19 @@ func TestMkJSON(t *testing.T) {
 	// 	`PeriodAttendances`,
 	// )
 
-	SetPathByFile("LIST", "./mkjson/LIST.txt", "listSIF347", true, '/')
-	SetPathByFile("LIST", "./mkjson/LIST1.txt", "listSIF347", true, '/')
+	if err := SetPathByFile("LIST", "./mkjson/LIST.txt", "listSIF347", true, '/'); err != nil {
+		panic(err)
+	}
 	if err := EnableListPath("listSIF347"); err != nil {
 		panic(err)
 	}
 
-	SetPathByFile("TYPE", "./mkjson/TYPE.txt", "typeSIF347", true, '/')
+	if err := SetPathByFile("TYPE", "./mkjson/BOOLEAN.txt", "typeSIF347", true, '/'); err != nil {
+		panic(err)
+	}
+	if err := SetPathByFile("TYPE", "./mkjson/NUMERIC.txt", "typeSIF347", true, '/'); err != nil {
+		panic(err)
+	}
 	if err := EnableNonStrPath("typeSIF347"); err != nil {
 		panic(err)
 	}
