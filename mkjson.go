@@ -164,21 +164,14 @@ NEXT:
 		mav[name] = value
 	}
 	// --------------------------------------- //
-	I := 0
-FOR:
 	for i, c := range swBrktPart {
 		switch c {
 		case ' ', '>', '/':
-			I = i
-			break FOR
+			tag = swBrktPart[1:i]
+			return
 		}
 	}
-	if I == 0 {
-		panic("error@swBrktPart")
-	}
-	tag = swBrktPart[1:I]
-
-	return
+	panic("error@swBrktPart")
 }
 
 // .123 => 0.123
@@ -246,13 +239,6 @@ func cat4json(
 	var spacecolon byte = ' '
 	if slim {
 		spacecolon = ':'
-	}
-
-	// ------------------------------ //
-
-	str2type := false
-	if _, ok := mNonStrPath[stk.Sprint(nspSep)]; ok {
-		str2type = true
 	}
 
 	// ------------------------------ //
@@ -334,6 +320,7 @@ func cat4json(
 				}
 			}
 
+			str2type := false
 			if _, ok := mNonStrPath[sTrimLeft(stk.Sprint(nspSep)+nspSep+tag+nspSep+attr, nspSep)]; ok {
 				str2type = true
 			}
@@ -363,6 +350,11 @@ func cat4json(
 
 	case cText: // push
 		part = xmlTxtEscCharProc(part)
+
+		str2type := false
+		if _, ok := mNonStrPath[stk.Sprint(nspSep)]; ok {
+			str2type = true
+		}
 
 		// if Not the first position for text content, append a Comma to existing buf.
 		eChar := lastChar()
