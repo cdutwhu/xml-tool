@@ -459,10 +459,8 @@ func MkJSON(xmlstr string) string {
 
 // --------------------------------- //
 
-var sb4TxtEscChar = sBuilder{}
-
 func xmlTxtEscCharProc(txt string) string {
-	sb4TxtEscChar.Reset()
+	sb4TxtEscChar := sBuilder{}
 	for _, c := range txt {
 		switch c {
 		case '"':
