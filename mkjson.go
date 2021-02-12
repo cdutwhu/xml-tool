@@ -44,8 +44,8 @@ func SetIgnrAttr(attrGrp ...string) {
 // ---------------------------------------------------------------- //
 
 // SetNonStrPath :
-func SetNonStrPath(id string, add bool, sep rune, pathGrp ...string) {
-	if mRegMapNSP[id] == nil || !add {
+func SetNonStrPath(id string, addMode bool, sep rune, pathGrp ...string) {
+	if mRegMapNSP[id] == nil || !addMode {
 		mRegMapNSP[id] = make(map[string]struct{})
 	}
 	nspSep = string(sep)
@@ -65,11 +65,16 @@ func EnableNonStrPath(id string) error {
 	return fEf("[%s] is not set for NonStrPath", id)
 }
 
+// DirectNonStrPath :
+func DirectNonStrPath(m map[string]struct{}) {
+	mNonStrPath = m
+}
+
 // ----------------------------- //
 
 // SetListPath :
-func SetListPath(id string, add bool, sep rune, pathGrp ...string) {
-	if mRegMapLP[id] == nil || !add {
+func SetListPath(id string, addMode bool, sep rune, pathGrp ...string) {
+	if mRegMapLP[id] == nil || !addMode {
 		mRegMapLP[id] = make(map[string]struct{})
 	}
 	lspSep = string(sep)
@@ -87,6 +92,29 @@ func EnableListPath(id string) error {
 	}
 	return fEf("[%s] is not set for ListPath", id)
 }
+
+// DirectListPath :
+func DirectListPath(m map[string]struct{}) {
+	mListPath = m
+}
+
+// SetListPathSuffix :
+func SetListPathSuffix(sufGrp ...string) {
+	if !setSlim {
+		panic("MUST explicitly 'SetSlim' before setting List")
+	}
+
+	space := " "
+	if slim {
+		space = ""
+	}
+	for i, suf := range sufGrp {
+		sufGrp[i] = fSf(`%s":%s`, suf, space)
+	}
+	suf4LsEleGrp = append(suf4LsEleGrp, sufGrp...)
+}
+
+// ----------------------------- //
 
 // SetPathByFile :
 func SetPathByFile(pathtype, filepath, id string, add bool, sep rune) error {
@@ -113,22 +141,6 @@ func SetPathByFile(pathtype, filepath, id string, add bool, sep rune) error {
 		panic(fSf("[%s] is not supported @SetPathByFile", pathtype))
 	}
 	return nil
-}
-
-// SetListPathSuffix :
-func SetListPathSuffix(sufGrp ...string) {
-	if !setSlim {
-		panic("MUST explicitly 'SetSlim' before setting List")
-	}
-
-	space := " "
-	if slim {
-		space = ""
-	}
-	for i, suf := range sufGrp {
-		sufGrp[i] = fSf(`%s":%s`, suf, space)
-	}
-	suf4LsEleGrp = append(suf4LsEleGrp, sufGrp...)
 }
 
 // ---------------------------------------------------------------- //
