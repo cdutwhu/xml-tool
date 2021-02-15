@@ -4,13 +4,44 @@ import (
 	"io/ioutil"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
+	"github.com/cdutwhu/gotil/embres"
 	"github.com/cdutwhu/gotil/io"
 	"github.com/cdutwhu/gotil/misc"
 	jt "github.com/cdutwhu/json-tool"
+	// m "github.com/cdutwhu/xml-tool/mkjson"
 )
+
+func TestPrepareLineKeyMap(t *testing.T) {
+	io.EditFileByLine("./mkjson/348d.txt", func(ln string) (bool, string) {
+		if strings.HasPrefix(ln, "NUMERIC:") {
+			return true, ln[len("NUMERIC: "):] + "\n" + ln[len("NUMERIC: "):] + "/value"
+		}
+		return false, ""
+	}, "./mkjson/NUMERIC.txt")
+	embres.PrintLineKeyMap("mkjson", "MNumPath348D", "./mkjson/numpath348draft", "./mkjson/NUMERIC.txt")
+
+	io.EditFileByLine("./mkjson/348d.txt", func(ln string) (bool, string) {
+		if strings.HasPrefix(ln, "BOOLEAN:") {
+			return true, ln[len("BOOLEAN: "):] + "\n" + ln[len("BOOLEAN: "):] + "/value"
+		}
+		return false, ""
+	}, "./mkjson/BOOLEAN.txt")
+	embres.PrintLineKeyMap("mkjson", "MBoolPath348D", "./mkjson/boolpath348draft", "./mkjson/BOOLEAN.txt")
+
+	io.EditFileByLine("./mkjson/348d.txt", func(ln string) (bool, string) {
+		if strings.HasPrefix(ln, "LIST:") {
+			part := ln[len("LIST: "):]
+			ss := strings.Split(part, "/")
+			return true, strings.Join(ss[:len(ss)-1], "/")
+		}
+		return false, ""
+	}, "./mkjson/LIST.txt")
+	embres.PrintLineKeyMap("mkjson", "MListPath348D", "./mkjson/listpath348draft", "./mkjson/LIST.txt")
+}
 
 func TestXmlTxtEscCharProc(t *testing.T) {
 	part := ` he"llo
@@ -56,6 +87,7 @@ func TestMkJSON(t *testing.T) {
 	if err := EnableListPath("listSIF347"); err != nil {
 		panic(err)
 	}
+	// DirectListPath('/', m.MListPath348D)
 
 	if err := SetPathByFile("TYPE", "./mkjson/BOOLEAN.txt", "typeSIF347", true, '/'); err != nil {
 		panic(err)
@@ -66,6 +98,7 @@ func TestMkJSON(t *testing.T) {
 	if err := EnableNonStrPath("typeSIF347"); err != nil {
 		panic(err)
 	}
+	// DirectNonStrPath('/', m.MBoolPath348D, m.MNumPath348D)
 
 	filepath.Walk(dir, func(path string, info os.FileInfo, err error) error {
 		if xmlfile := info.Name(); sHasSuffix(xmlfile, ".xml") {

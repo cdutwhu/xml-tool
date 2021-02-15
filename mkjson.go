@@ -66,8 +66,11 @@ func EnableNonStrPath(id string) error {
 }
 
 // DirectNonStrPath :
-func DirectNonStrPath(m map[string]struct{}) {
-	mNonStrPath = m
+func DirectNonStrPath(sep rune, ms ...map[string]struct{}) {
+	nspSep = string(sep)
+	for _, m := range ms {
+		mNonStrPath = mapMerge(mNonStrPath, m).(map[string]struct{})
+	}
 }
 
 // ----------------------------- //
@@ -94,8 +97,11 @@ func EnableListPath(id string) error {
 }
 
 // DirectListPath :
-func DirectListPath(m map[string]struct{}) {
-	mListPath = m
+func DirectListPath(sep rune, ms ...map[string]struct{}) {
+	lspSep = string(sep)
+	for _, m := range ms {
+		mListPath = mapMerge(mListPath, m).(map[string]struct{})
+	}
 }
 
 // SetListPathSuffix :
@@ -117,7 +123,7 @@ func SetListPathSuffix(sufGrp ...string) {
 // ----------------------------- //
 
 // SetPathByFile :
-func SetPathByFile(pathtype, filepath, id string, add bool, sep rune) error {
+func SetPathByFile(pathtype, filepath, id string, addMode bool, sep rune) error {
 	file, err := os.Open(filepath)
 	if err != nil {
 		return err
@@ -134,9 +140,9 @@ func SetPathByFile(pathtype, filepath, id string, add bool, sep rune) error {
 	}
 	switch pathtype {
 	case "LIST", "List", "list":
-		SetListPath(id, add, sep, paths...)
+		SetListPath(id, addMode, sep, paths...)
 	case "Type", "TYPE", "Non-Str", "NON-STR", "NonStr", "NONSTR", "Bool", "BOOL", "Num", "NUM":
-		SetNonStrPath(id, add, sep, paths...)
+		SetNonStrPath(id, addMode, sep, paths...)
 	default:
 		panic(fSf("[%s] is not supported @SetPathByFile", pathtype))
 	}

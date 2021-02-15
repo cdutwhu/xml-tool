@@ -6,6 +6,7 @@ import (
 	"regexp"
 	"strings"
 
+	rflx "github.com/cdutwhu/gotil/rflx"
 	stk "github.com/cdutwhu/gotil/stack"
 )
 
@@ -28,6 +29,7 @@ var (
 	sReplace      = strings.Replace
 	sReplaceAll   = strings.ReplaceAll
 	rxMustCompile = regexp.MustCompile
+	mapMerge      = rflx.MapMerge
 
 	sHasAnySuffix = func(s string, suffix ...string) bool {
 		for _, suf := range suffix {

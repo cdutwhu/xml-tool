@@ -1,10 +1,16 @@
 github.com/cdutwhu/debog v0.2.10 h1:c8KfU09aU+6IcxtFs5mvTVkoF4WW24pTMqBjnQqyWbs=
 github.com/cdutwhu/debog v0.2.10/go.mod h1:1aTerK2VgeCIvf3Ss4J+zUzhEivYSwJyGWUSu3m6+OU=
+github.com/cdutwhu/gotil v0.1.8/go.mod h1:yI4md0Ig5cY/bT2AHq4n/XnSl3fo2eYYvFSGAv31QHQ=
 github.com/cdutwhu/gotil v0.1.16 h1:benJt6HRruc58cxQuRFaS/lE6ouHubRFwGS2C2qbG0Y=
 github.com/cdutwhu/gotil v0.1.16/go.mod h1:yI4md0Ig5cY/bT2AHq4n/XnSl3fo2eYYvFSGAv31QHQ=
+github.com/cdutwhu/json-tool v0.1.6 h1:9mukYYFHWHEUCKRJBAPpuaTvGlHD+3Y0fB+A8x9jNsw=
+github.com/cdutwhu/json-tool v0.1.6/go.mod h1:CtVmz87oMBIdrAiKAJ6L5D01Fw8KwL8a0wTCYwwT6tc=
+github.com/clbanning/mxj v1.8.4 h1:HuhwZtbyvyOw+3Z1AowPkU87JkJUSv751ELWaiTpj8I=
+github.com/clbanning/mxj v1.8.4/go.mod h1:BVjHeAH+rl9rs6f+QIpeRl0tfu10SXn1pUSa5PVGJng=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
-github.com/gookit/color v1.2.8 h1:9wExr3qoZN7h81JecfXkynnlAWLPlvDmVMqLw9Sr6Cw=
 github.com/gookit/color v1.2.8/go.mod h1:AhIE+pS6D4Ql0SQWbBeXPHw7gY0/sjHoA4s/n1KB7xg=
+github.com/gookit/color v1.3.1 h1:PPD/C7sf8u2L8XQPdPgsWRoAiLQGZEZOzU3cf5IYYUk=
+github.com/gookit/color v1.3.1/go.mod h1:R3ogXq2B9rTbXoSHJ1HyUVAZ3poOJHpd9nQmyGZsfvQ=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/objx v0.1.0/go.mod h1:HFkY916IF+rwdDfMAkV7OtwuqBVzrE8GR6GFx+wExME=
 github.com/stretchr/testify v1.3.0/go.mod h1:M5WIy9Dh21IEIfnGCwXGc5bZfKNJtfHm1UVUgZn+9EI=
