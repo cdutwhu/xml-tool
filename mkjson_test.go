@@ -1,7 +1,6 @@
 package xmltool
 
 import (
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"strings"
@@ -113,7 +112,7 @@ func TestMkJSON(t *testing.T) {
 
 			fPln("processing...", xmlfile)
 
-			bytes, _ := ioutil.ReadFile(dir + xmlfile)
+			bytes, _ := os.ReadFile(dir + xmlfile)
 			jsonstr := MkJSON(string(bytes))
 
 			if !jt.IsValid(jsonstr) {
@@ -161,7 +160,7 @@ func BenchmarkMkJSON(b *testing.B) {
 				if xmlfile == "n2sif.xml" {
 					return nil
 				}
-				bytes, _ := ioutil.ReadFile(dir + xmlfile)
+				bytes, _ := os.ReadFile(dir + xmlfile)
 				MkJSON(string(bytes))
 
 				// jsonstr := MkJSON(string(bytes))

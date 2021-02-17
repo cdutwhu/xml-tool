@@ -1,7 +1,7 @@
 package xmltool
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 
@@ -12,7 +12,7 @@ import (
 func TestRmEmptyEle(T *testing.T) {
 	defer misc.TrackTime(time.Now())
 
-	bytes, err := ioutil.ReadFile("./examples/err-json.xml")
+	bytes, err := os.ReadFile("./examples/err-json.xml")
 	if err != nil {
 		panic(err)
 	}
@@ -24,7 +24,7 @@ func TestRmEmptyEle(T *testing.T) {
 
 	remainder := RmEmptyEle(xml, 3, false)
 	// fPln(remainder)
-	// ioutil.WriteFile("debug.xml", []byte(remainder), 0666)
+	// os.WriteFile("debug.xml", []byte(remainder), 0666)
 
 	if !IsValid(remainder) {
 		panic("invalid remainder")
@@ -43,7 +43,7 @@ func TestRmEmptyEle(T *testing.T) {
 
 func BenchmarkRmEmptyEle(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		bytes, err := ioutil.ReadFile("./examples/n2sif_2.xml")
+		bytes, err := os.ReadFile("./examples/n2sif_2.xml")
 		if err != nil {
 			panic(err)
 		}

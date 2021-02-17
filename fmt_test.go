@@ -1,7 +1,7 @@
 package xmltool
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 
@@ -10,7 +10,7 @@ import (
 
 func TestValStrIdx(t *testing.T) {
 	misc.TrackTime(time.Now())
-	bytes, _ := ioutil.ReadFile("./examples/StudentPersonal.xml")
+	bytes, _ := os.ReadFile("./examples/StudentPersonal.xml")
 	xmlstr := string(bytes)
 	if !IsValid(xmlstr) {
 		panic("error")

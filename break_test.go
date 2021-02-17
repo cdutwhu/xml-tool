@@ -1,7 +1,7 @@
 package xmltool
 
 import (
-	"io/ioutil"
+	"os"
 	"testing"
 	"time"
 
@@ -45,7 +45,7 @@ func TestBreakCont(t *testing.T) {
 		return
 	}
 
-	xmlbytes, _ := ioutil.ReadFile(testfile)
+	xmlbytes, _ := os.ReadFile(testfile)
 	xml := string(xmlbytes)
 
 	name, out, in := Lvl0(xml)
